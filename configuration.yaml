@@ -1,0 +1,117 @@
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+# Uncomment to enable Nordpool debug logging
+#logger:
+#  default: info
+#  logs:
+#    nordpool: debug
+#    custom_components.nordpool: debug
+#    custom_components.nordpool.sensor: debug
+#    custom_components.nordpool.aio_price: debug
+
+# Solar production = 0 if unavailable
+template:
+  - sensor:
+      - name: "Current Production"
+        unit_of_measurement: "W"
+        device_class: power
+        icon: "mdi:flash"
+        state:  "{{ states('sensor.solarnet_power_photovoltaics')|float(0) }}"
+
+  - sensor:
+      - name: "Current Consumption"
+        unit_of_measurement: "W"
+        device_class: power
+        state: >
+          {% set c1 = states('sensor.nibe_32275_40083') | float %}
+          {% set c2 = states('sensor.nibe_32275_40081') | float %}
+          {% set c3 = states('sensor.nibe_32275_40079') | float %}
+
+          {{ (c1 + c2 + c3) * 240 | round(1, default=0) }}
+
+  - sensor:
+      - name: "Hourly cost"
+        unit_of_measurement: "EUR/kWh"
+        state: >
+          {% set consumption = states('sensor.consumption_now') | float %}
+          {% set nordpool = states('sensor.nordpool_kwh_fi_eur_2_095_024') | float %}
+
+          {{ consumption * nordpool / 100 + consumption * 7.35 / 100 | round(1, default=0) }}
+  - sensor:
+      - name: "Electricity Price Euros"
+        unit_of_measurement: "EUR/kWh"
+        state: >
+          {% set nordpool = states('sensor.nordpool_kwh_fi_eur_2_095_024') | float %}
+
+          {{ nordpool * 1.0038 / 100 + 7.35 / 100 | round(1, default=0) }}
+  - sensor:
+      - name: "Date and time"
+        state: "{{ as_timestamp(states('sensor.date_time_iso')) | timestamp_custom('%A %B %-d, %I:%M %p') }}"
+        icon: "mdi:calendar-clock"
+
+nordpool:
+
+sensor:
+  - platform: nordpool
+
+    # Should the prices include vat? Default True
+    VAT: True
+
+    # What currency the api fetches the prices in
+    # this is only need if you want a sensor in a non local currency
+    currency: "EUR"
+    
+    # Option to show prices in cents (or the equivalent in local currency)
+    price_in_cents: true
+
+    # Helper so you can set your "low" price
+    # low_price = hour_price < average * low_price_cutoff
+    low_price_cutoff: 0.95
+
+    # What power regions your are interested in.
+    # Possible values: "DK1", "DK2", "FI", "LT", "LV", "Oslo", "Kr.sand", "Bergen", "Molde", "Tr.heim", "Tromsø", "SE1", "SE2", "SE3","SE4", "SYS", "EE"
+    region: "FI"
+
+    # How many decimals to use in the display of the price
+    precision: 2
+
+    # What the price should be displayed in default
+    # Possible values: MWh, kWh and Wh
+    # default: kWh
+    price_type: kWh
+
+    # This option allows the usage of a template to add a tariff.
+    # now() always refers start of the hour of that price.
+    # this way we can calculate the correct costs add that to graphs etc.
+    # The price result of the additional_costs template expects this additional cost to be in kWh and not cents as a float
+    # default {{0.0|float}}
+    additional_costs: "{{0.0|float}}"
+
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+      - 'date_time_iso'
+  
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /config
+      - type: memory_free
+      - type: processor_use
+      - type: processor_temperature
