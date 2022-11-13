@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace",
+  "data": {
+    "config": {
+      "title": "Koti",
+      "views": [
+        {
+          "path": "default_view",
+          "title": "Home",
+          "cards": [
+            {
+              "type": "custom:bignumber-card",
+              "title": "Sisälämpötila",
+              "entity": "sensor.ilpo_room_temperature",
+              "scale": "60px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Tuotanto nyt",
+              "entity": "sensor.current_production",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0,
+              "hideunit": true
+            },
+            {
+              "show_current": true,
+              "show_forecast": true,
+              "type": "weather-forecast",
+              "entity": "weather.forecast_home",
+              "name": "Sääennuste"
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Tuloilma",
+              "entity": "sensor.nibe_32275_40075",
+              "scale": "60px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Sähkön hinta",
+              "entity": "sensor.nordpool_kwh_fi_eur_2_095_024",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0,
+              "hideunit": true
+            },
+            {
+              "type": "custom:apexcharts-card",
+              "graph_span": "24h",
+              "header": {
+                "title": "Sähkön hinta tänään (snt/kWh)",
+                "show": true
+              },
+              "span": {
+                "start": "day"
+              },
+              "now": {
+                "show": true,
+                "label": "Nyt"
+              },
+              "experimental": {
+                "color_threshold": true
+              },
+              "series": [
+                {
+                  "entity": "sensor.nordpool_kwh_fi_eur_2_095_024",
+                  "type": "column",
+                  "data_generator": "return entity.attributes.raw_today.map((start, index) => {\n  return [new Date(start[\"start\"]).getTime(), entity.attributes.raw_today[index][\"value\"]];\n});\n",
+                  "color_threshold": [
+                    {
+                      "value": 5,
+                      "color": "#1BA875"
+                    },
+                    {
+                      "value": 10,
+                      "color": "#1589d6"
+                    },
+                    {
+                      "value": 20,
+                      "color": "#FF3A49"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Ulkolämpötila",
+              "entity": "sensor.nibe_32275_40004",
+              "scale": "60px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Kulutus nyt (W)",
+              "entity": "sensor.current_consumption",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0,
+              "hideunit": true
+            },
+            {
+              "type": "energy-sources-table"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

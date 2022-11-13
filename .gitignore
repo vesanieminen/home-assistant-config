@@ -6,6 +6,7 @@ __pycache__
 *.pyc
 # Home Assistant Version
 .HA_VERSION
+*.swp
 
 # Other
 *.uuid

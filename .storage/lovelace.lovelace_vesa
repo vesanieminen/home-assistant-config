@@ -1,0 +1,182 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.lovelace_vesa",
+  "data": {
+    "config": {
+      "title": "Home",
+      "views": [
+        {
+          "path": "default_view",
+          "title": "Home",
+          "cards": [
+            {
+              "type": "grid",
+              "square": false,
+              "columns": 1,
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    "remote.olohuone",
+                    "sensor.ilpo_energy",
+                    "sensor.ilpo_daily_energy_consumed",
+                    "sensor.ilpo_room_temperature"
+                  ],
+                  "title": "Living Room"
+                },
+                {
+                  "type": "media-control",
+                  "entity": "media_player.olohuone"
+                },
+                {
+                  "type": "media-control",
+                  "entity": "media_player.lg_webos_tv_oled55b6v"
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.ilpo"
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.symo_7_0_3_m_1_current_dc",
+                  "name": "Current DC"
+                },
+                {
+                  "entity": "sensor.symo_7_0_3_m_1_energy_day",
+                  "name": "Energy day"
+                },
+                {
+                  "entity": "sensor.symo_7_0_3_m_1_energy_total",
+                  "name": "Energy total"
+                },
+                {
+                  "entity": "sensor.symo_7_0_3_m_1_energy_year",
+                  "name": "Energy year"
+                },
+                {
+                  "entity": "sensor.symo_7_0_3_m_1_voltage_dc",
+                  "name": "Voltage DC"
+                }
+              ],
+              "title": "Symo 7.0-3-M (1)"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "sensor.nibe_32275_44896",
+                "sensor.nibe_32275_44897",
+                "sensor.nibe_32275_10069",
+                "sensor.nibe_32275_44908"
+              ],
+              "title": "F470 R 3x400V - 32275 : master : smart price adaption"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "sensor.nibe_32275_40067",
+                "sensor.nibe_32275_40083",
+                "sensor.nibe_32275_40081",
+                "sensor.nibe_32275_40079",
+                "sensor.nibe_32275_40014",
+                "sensor.nibe_32275_40013",
+                "sensor.nibe_32275_40004"
+              ],
+              "title": "F470 R 3x400V - 32275 : master : status"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "sensor.nibe_32275_40025",
+                "sensor.nibe_32275_40026",
+                "sensor.nibe_32275_10001",
+                "sensor.nibe_32275_40075"
+              ],
+              "title": "F470 R 3x400V - 32275 : master : ventilation"
+            },
+            {
+              "type": "grid",
+              "square": false,
+              "columns": 1,
+              "cards": [
+                {
+                  "type": "entities",
+                  "entities": [
+                    "water_heater.nibe_hot_water",
+                    "fan.nibe_32275_ventilation"
+                  ],
+                  "title": "F470 R 3x400V - 32275"
+                },
+                {
+                  "type": "thermostat",
+                  "entity": "climate.nibe_32275_s1_supply"
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "light.tradfri_bulb"
+              ],
+              "title": "Vesa's room"
+            },
+            {
+              "type": "weather-forecast",
+              "entity": "weather.forecast_home",
+              "show_forecast": false
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "sensor.speedtest_download",
+                "sensor.speedtest_upload",
+                "sensor.speedtest_ping"
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "binary_sensor.nas_security_status",
+                "sensor.nas_cpu_utilization_user",
+                "sensor.nas_cpu_utilization_total",
+                "sensor.nas_cpu_load_average_5_min",
+                "sensor.nas_cpu_load_average_15_min",
+                "sensor.nas_memory_usage_real",
+                "sensor.nas_memory_available_swap",
+                "sensor.nas_memory_available_real",
+                "sensor.nas_memory_total_swap",
+                "sensor.nas_memory_total_real",
+                "sensor.nas_upload_throughput",
+                "sensor.nas_download_throughput"
+              ],
+              "title": "Garage"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "sensor.nas_volume_1_status",
+                "sensor.nas_volume_1_used_space",
+                "sensor.nas_volume_1_volume_used"
+              ],
+              "title": "Sensor"
+            },
+            {
+              "type": "gauge",
+              "entity": "sensor.energy_production_today"
+            },
+            {
+              "type": "history-graph",
+              "entities": [
+                "sun.sun"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

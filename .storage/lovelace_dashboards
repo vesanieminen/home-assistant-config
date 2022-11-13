@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace_dashboards",
+  "data": {
+    "items": [
+      {
+        "show_in_sidebar": true,
+        "icon": "mdi:account",
+        "title": "Vesa",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "lovelace-vesa",
+        "id": "lovelace_vesa"
+      },
+      {
+        "show_in_sidebar": true,
+        "icon": "mdi:account",
+        "title": "Saija",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "lovelace-saija",
+        "id": "lovelace_saija"
+      },
+      {
+        "show_in_sidebar": true,
+        "icon": "mdi:account",
+        "title": "Vesa lista",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "vesa-simple",
+        "id": "vesa_simple"
+      },
+      {
+        "show_in_sidebar": true,
+        "icon": "mdi:tablet-dashboard",
+        "title": "Kaikki",
+        "require_admin": true,
+        "mode": "storage",
+        "url_path": "lovelace-kaikki",
+        "id": "lovelace_kaikki"
+      }
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace_resources",
+  "data": {
+    "items": [
+      {
+        "url": "/local/apexcharts-card.js",
+        "type": "module",
+        "id": "c9391e9478924603986d8fc83a518ffe"
+      },
+      {
+        "url": "/local/bignumber-card.js",
+        "type": "module",
+        "id": "0d07e17f588d4eb8bdae1040578b4670"
+      },
+      {
+        "url": "/local/mini-graph-card-bundle.js",
+        "type": "module",
+        "id": "72f329ee0b544e22bf6e41d84fce0879"
+      }
+    ]
+  }
+}

@@ -1,0 +1,207 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.vesa_simple",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "title": "Home",
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.current_consumption",
+                  "name": "Kulutus nyt"
+                },
+                {
+                  "entity": "sensor.current_production",
+                  "name": "Aurinkotuotanto nyt"
+                },
+                {
+                  "entity": "sensor.nordpool_kwh_fi_eur_2_095_024"
+                },
+                {
+                  "entity": "sensor.symo_7_0_3_m_1_energy_day"
+                },
+                {
+                  "entity": "sensor.energy_production_today"
+                },
+                {
+                  "entity": "sensor.energy_production_tomorrow"
+                },
+                {
+                  "entity": "sensor.ilpo_daily_energy_consumed"
+                },
+                {
+                  "entity": "sensor.ilpo_room_temperature"
+                },
+                {
+                  "entity": "sensor.nibe_32275_40004"
+                },
+                {
+                  "entity": "sensor.nibe_32275_40075"
+                },
+                {
+                  "entity": "sensor.nibe_32275_40025"
+                },
+                {
+                  "entity": "sensor.nibe_32275_40026"
+                },
+                {
+                  "entity": "sensor.nibe_32275_10001"
+                },
+                {
+                  "entity": "sensor.nibe_32275_43084"
+                },
+                {
+                  "entity": "sensor.nibe_32275_44896"
+                },
+                {
+                  "entity": "sensor.nibe_32275_43009"
+                },
+                {
+                  "entity": "sensor.nibe_32275_40008"
+                },
+                {
+                  "entity": "sensor.nibe_32275_40012"
+                },
+                {
+                  "entity": "sensor.nibe_32275_40014"
+                },
+                {
+                  "entity": "sensor.nibe_32275_40013"
+                },
+                {
+                  "entity": "sensor.nibe_32275_40023"
+                }
+              ]
+            },
+            {
+              "type": "custom:apexcharts-card",
+              "graph_span": "48h",
+              "header": {
+                "title": "Sähkön hinta tänään (snt/kWh)",
+                "show": true
+              },
+              "span": {
+                "start": "day"
+              },
+              "now": {
+                "show": true,
+                "label": "Nyt"
+              },
+              "experimental": {
+                "color_threshold": true
+              },
+              "series": [
+                {
+                  "entity": "sensor.nordpool_kwh_fi_eur_2_095_024",
+                  "type": "column",
+                  "data_generator": "return entity.attributes.raw_today.map((start, index) => {\n  return [new Date(start[\"start\"]).getTime(), entity.attributes.raw_today[index][\"value\"]];\n});\n",
+                  "color_threshold": [
+                    {
+                      "value": 5,
+                      "color": "#1BA875"
+                    },
+                    {
+                      "value": 10,
+                      "color": "#1589d6"
+                    },
+                    {
+                      "value": 20,
+                      "color": "#FF3A49"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "light",
+              "entity": "light.tradfri_bulb",
+              "name": "Työhuoneen valo"
+            },
+            {
+              "chart_type": "line",
+              "period": "5minute",
+              "days_to_show": 30,
+              "type": "statistics-graph",
+              "entities": [
+                "sensor.nibe_32275_43084"
+              ],
+              "stat_types": [
+                "mean"
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.memory_free"
+                },
+                {
+                  "entity": "sensor.processor_use"
+                },
+                {
+                  "entity": "sensor.processor_temperature"
+                },
+                {
+                  "entity": "sensor.disk_use_percent_config"
+                }
+              ]
+            },
+            {
+              "type": "energy-distribution",
+              "link_dashboard": true
+            },
+            {
+              "type": "custom:mini-graph-card",
+              "name": "Sähkön kulutus",
+              "smoothing": true,
+              "hours_to_show": 240,
+              "points_per_hour": 1,
+              "line_width": 2,
+              "line_color": "orange",
+              "animate": true,
+              "height": 100,
+              "entities": [
+                "sensor.sahkon_kulutus"
+              ],
+              "show": {
+                "graph": "bar",
+                "average": true,
+                "extrema": true,
+                "labels": false
+              },
+              "group_by": "date",
+              "aggregate_func": "max"
+            },
+            {
+              "type": "energy-usage-graph"
+            },
+            {
+              "type": "energy-sources-table"
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Kulutus nyt (W)",
+              "entity": "sensor.current_consumption",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0,
+              "hideunit": true,
+              "value_template": {
+                "[object Object]": null
+              }
+            },
+            {
+              "type": "energy-sources-table"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

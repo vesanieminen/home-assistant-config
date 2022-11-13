@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.lovelace_saija",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "title": "Home",
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.nibe_32275_40004"
+                },
+                {
+                  "entity": "sensor.ilpo_room_temperature"
+                },
+                {
+                  "entity": "sensor.nibe_32275_40075"
+                },
+                {
+                  "entity": "sensor.current_production",
+                  "name": "Aurinkotuotanto nyt"
+                },
+                {
+                  "entity": "sensor.nordpool_kwh_fi_eur_2_095_024"
+                }
+              ]
+            },
+            {
+              "type": "custom:apexcharts-card",
+              "graph_span": "24h",
+              "header": {
+                "title": "Sähkön hinta tänään (snt/kWh)",
+                "show": true
+              },
+              "span": {
+                "start": "day"
+              },
+              "now": {
+                "show": true,
+                "label": "Nyt"
+              },
+              "experimental": {
+                "color_threshold": true
+              },
+              "series": [
+                {
+                  "entity": "sensor.nordpool_kwh_fi_eur_2_095_024",
+                  "type": "column",
+                  "data_generator": "return entity.attributes.raw_today.map((start, index) => {\n  return [new Date(start[\"start\"]).getTime(), entity.attributes.raw_today[index][\"value\"]];\n});\n",
+                  "color_threshold": [
+                    {
+                      "value": 5,
+                      "color": "#1BA875"
+                    },
+                    {
+                      "value": 10,
+                      "color": "#1589d6"
+                    },
+                    {
+                      "value": 20,
+                      "color": "#FF3A49"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "weather-forecast",
+              "entity": "weather.forecast_home"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
