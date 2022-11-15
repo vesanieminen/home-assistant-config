@@ -49,6 +49,7 @@ template:
         unit_of_measurement: "EUR"
         device_class: monetary
         state: >
+          {% set consumption = states('sensor.current_consumption') | float %}
           {% set price = states('sensor.electricity_price_euros') | float %}
           {{ price }}
 
