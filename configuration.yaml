@@ -34,6 +34,7 @@ template:
 
   - sensor:
       - name: "Current Consumption"
+        unique_id: "current_consumption"
         unit_of_measurement: "W"
         device_class: power
         state: >
@@ -53,6 +54,7 @@ template:
 
   - sensor:
       - name: "Electricity Price Euros"
+        unique_id: "electricity_price_euros"
         unit_of_measurement: "EUR/kWh"
         state: >
           {% set nordpool = states('sensor.nordpool_kwh_fi_eur_2_095_024') | float %}
