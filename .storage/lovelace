@@ -27,14 +27,11 @@
               "from": "bottom",
               "min": 0,
               "max": 0,
-              "hideunit": true
+              "hideunit": true,
+              "round": 0
             },
             {
-              "show_current": true,
-              "show_forecast": true,
-              "type": "weather-forecast",
-              "entity": "weather.forecast_home",
-              "name": "Sääennuste"
+              "type": "energy-sources-table"
             },
             {
               "type": "custom:bignumber-card",
@@ -111,21 +108,19 @@
               "from": "bottom",
               "min": 0,
               "max": 0,
-              "hideunit": true
+              "hideunit": true,
+              "round": 0
             },
             {
               "type": "custom:bignumber-card",
-              "title": "Tuntikustannus",
+              "title": "Hinta nyt (€/h)",
               "entity": "sensor.current_cost",
               "scale": "75px",
               "from": "bottom",
               "min": 0,
               "max": 0,
-              "hideunit": false,
+              "hideunit": true,
               "round": 2
-            },
-            {
-              "type": "energy-sources-table"
             }
           ]
         }
