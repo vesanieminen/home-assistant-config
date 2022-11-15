@@ -51,7 +51,7 @@ template:
         state: >
           {% set consumption = states('sensor.current_consumption') | float %}
           {% set price = states('sensor.electricity_price_euros') | float %}
-          {{ price }}
+          {{ price * consumption }}
 
   - sensor:
       - name: "Electricity Price Euros"
