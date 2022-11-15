@@ -44,13 +44,12 @@ template:
           {{ (c1 + c2 + c3) * 240 | round(1, default=0) }}
 
   - sensor:
-      - name: "Hourly cost"
-        unit_of_measurement: "EUR/kWh"
+      - name: "Current cost"
+        unit_of_measurement: "EUR"
+        device_class: monetary
         state: >
-          {% set consumption = states('sensor.consumption_now') | float %}
-          {% set nordpool = states('sensor.nordpool_kwh_fi_eur_2_095_024') | float %}
+          {{ 1.5 }}
 
-          {{ consumption * nordpool / 100 + consumption * 7.35 / 100 | round(1, default=0) }}
   - sensor:
       - name: "Electricity Price Euros"
         unit_of_measurement: "EUR/kWh"

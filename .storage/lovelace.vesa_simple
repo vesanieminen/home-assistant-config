@@ -12,6 +12,9 @@
               "type": "entities",
               "entities": [
                 {
+                  "entity": "sensor.nibe_32275_44896"
+                },
+                {
                   "entity": "sensor.current_consumption",
                   "name": "Kulutus nyt"
                 },
@@ -54,9 +57,6 @@
                 },
                 {
                   "entity": "sensor.nibe_32275_43084"
-                },
-                {
-                  "entity": "sensor.nibe_32275_44896"
                 },
                 {
                   "entity": "sensor.nibe_32275_43009"
@@ -154,28 +154,6 @@
             {
               "type": "energy-distribution",
               "link_dashboard": true
-            },
-            {
-              "type": "custom:mini-graph-card",
-              "name": "Sähkön kulutus",
-              "smoothing": true,
-              "hours_to_show": 240,
-              "points_per_hour": 1,
-              "line_width": 2,
-              "line_color": "orange",
-              "animate": true,
-              "height": 100,
-              "entities": [
-                "sensor.sahkon_kulutus"
-              ],
-              "show": {
-                "graph": "bar",
-                "average": true,
-                "extrema": true,
-                "labels": false
-              },
-              "group_by": "date",
-              "aggregate_func": "max"
             },
             {
               "type": "energy-usage-graph"
