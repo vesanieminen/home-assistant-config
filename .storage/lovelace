@@ -115,6 +115,16 @@
             },
             {
               "type": "energy-sources-table"
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Tuntikustannus",
+              "entity": "sensor.current_cost",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0,
+              "hideunit": true
             }
           ]
         }
