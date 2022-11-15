@@ -114,9 +114,6 @@
               "hideunit": true
             },
             {
-              "type": "energy-sources-table"
-            },
-            {
               "type": "custom:bignumber-card",
               "title": "Tuntikustannus",
               "entity": "sensor.current_cost",
@@ -124,7 +121,11 @@
               "from": "bottom",
               "min": 0,
               "max": 0,
-              "hideunit": true
+              "hideunit": false,
+              "round": 2
+            },
+            {
+              "type": "energy-sources-table"
             }
           ]
         }
