@@ -15,6 +15,9 @@
                   "entity": "sensor.nibe_32275_44896"
                 },
                 {
+                  "entity": "sensor.nibe_32275_43084"
+                },
+                {
                   "entity": "sensor.current_consumption",
                   "name": "Kulutus nyt"
                 },
@@ -54,9 +57,6 @@
                 },
                 {
                   "entity": "sensor.nibe_32275_10001"
-                },
-                {
-                  "entity": "sensor.nibe_32275_43084"
                 },
                 {
                   "entity": "sensor.nibe_32275_43009"

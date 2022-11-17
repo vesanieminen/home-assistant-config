@@ -120,7 +120,7 @@
               "min": 0,
               "max": 0,
               "hideunit": true,
-              "round": 2
+              "round": 3
             }
           ]
         }
