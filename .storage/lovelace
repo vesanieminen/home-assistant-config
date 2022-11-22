@@ -89,6 +89,11 @@
                     }
                   ]
                 }
+              ],
+              "yaxis": [
+                {
+                  "min": 0
+                }
               ]
             },
             {
@@ -113,7 +118,7 @@
             },
             {
               "type": "custom:bignumber-card",
-              "title": "Hinta nyt (€/h)",
+              "title": "Kustannus nyt (€/h)",
               "entity": "sensor.current_cost",
               "scale": "75px",
               "from": "bottom",

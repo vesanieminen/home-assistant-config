@@ -104,12 +104,12 @@ sensor:
     # default {{0.0|float}}
     additional_costs: "{{0.0|float}}"
 
-  - platform: time_date
-    display_options:
-      - 'time'
-      - 'date'
-      - 'date_time'
-      - 'date_time_iso'
+#  - platform: time_date
+#    display_options:
+#      - 'time'
+#      - 'date'
+#      - 'date_time'
+#      - 'date_time_iso'
   
   - platform: systemmonitor
     resources:
