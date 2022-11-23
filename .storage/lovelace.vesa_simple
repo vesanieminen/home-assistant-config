@@ -115,24 +115,17 @@
                     }
                   ]
                 }
+              ],
+              "yaxis": [
+                {
+                  "min": 0
+                }
               ]
             },
             {
               "type": "light",
               "entity": "light.tradfri_bulb",
               "name": "Työhuoneen valo"
-            },
-            {
-              "chart_type": "line",
-              "period": "5minute",
-              "days_to_show": 30,
-              "type": "statistics-graph",
-              "entities": [
-                "sensor.nibe_32275_43084"
-              ],
-              "stat_types": [
-                "mean"
-              ]
             },
             {
               "type": "entities",
