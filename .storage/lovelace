@@ -118,7 +118,7 @@
             },
             {
               "type": "custom:bignumber-card",
-              "title": "Kustannus nyt (€/h)",
+              "title": "Kustannus (€/h)",
               "entity": "sensor.current_cost",
               "scale": "75px",
               "from": "bottom",
@@ -126,6 +126,10 @@
               "max": 0,
               "hideunit": true,
               "round": 3
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.ilpo"
             }
           ]
         }
