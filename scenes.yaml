@@ -1,0 +1,120 @@
+- id: '1669323438002'
+  name: Night
+  entities:
+    climate.ilpo:
+      hvac_modes:
+      - 'off'
+      - heat
+      - dry
+      - cool
+      - fan_only
+      - heat_cool
+      min_temp: 10
+      max_temp: 31
+      target_temp_step: 0.5
+      fan_modes:
+      - auto
+      - '1'
+      - '2'
+      - '3'
+      - '4'
+      - '5'
+      swing_modes:
+      - auto
+      - 1_up
+      - '2'
+      - '3'
+      - '4'
+      - 5_down
+      - swing
+      current_temperature: 21.5
+      temperature: 20
+      fan_mode: '4'
+      swing_mode: auto
+      vane_horizontal: '3'
+      vane_horizontal_positions:
+      - auto
+      - 1_left
+      - '2'
+      - '3'
+      - '4'
+      - 5_right
+      - split
+      - swing
+      vane_vertical: auto
+      vane_vertical_positions:
+      - auto
+      - 1_up
+      - '2'
+      - '3'
+      - '4'
+      - 5_down
+      - swing
+      icon: mdi:heat-pump
+      friendly_name: Ilmalämpöpumppu
+      supported_features: 41
+      state: heat
+  icon: mdi:bed
+  metadata:
+    climate.ilpo:
+      entity_only: true
+- id: '1669323710999'
+  name: Morning
+  entities:
+    climate.ilpo:
+      hvac_modes:
+      - 'off'
+      - heat
+      - dry
+      - cool
+      - fan_only
+      - heat_cool
+      min_temp: 10
+      max_temp: 31
+      target_temp_step: 0.5
+      fan_modes:
+      - auto
+      - '1'
+      - '2'
+      - '3'
+      - '4'
+      - '5'
+      swing_modes:
+      - auto
+      - 1_up
+      - '2'
+      - '3'
+      - '4'
+      - 5_down
+      - swing
+      current_temperature: 21.5
+      temperature: 22
+      fan_mode: '4'
+      swing_mode: auto
+      vane_horizontal: '3'
+      vane_horizontal_positions:
+      - auto
+      - 1_left
+      - '2'
+      - '3'
+      - '4'
+      - 5_right
+      - split
+      - swing
+      vane_vertical: auto
+      vane_vertical_positions:
+      - auto
+      - 1_up
+      - '2'
+      - '3'
+      - '4'
+      - 5_down
+      - swing
+      icon: mdi:heat-pump
+      friendly_name: Ilmalämpöpumppu
+      supported_features: 41
+      state: heat
+  icon: mdi:sun-clock
+  metadata:
+    climate.ilpo:
+      entity_only: true

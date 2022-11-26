@@ -166,9 +166,6 @@
               "value_template": {
                 "[object Object]": null
               }
-            },
-            {
-              "type": "energy-sources-table"
             }
           ]
         }

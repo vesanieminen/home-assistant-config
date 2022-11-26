@@ -1,1 +1,26 @@
-[]
+- id: '1669323782390'
+  alias: Night
+  description: ''
+  trigger:
+  - platform: time
+    at: '23:00:00'
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.night
+    metadata: {}
+  mode: single
+- id: '1669323839393'
+  alias: Morning
+  description: ''
+  trigger:
+  - platform: time
+    at: 06:00:00
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.morning
+    metadata: {}
+  mode: single
