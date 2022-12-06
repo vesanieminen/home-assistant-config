@@ -27,8 +27,8 @@
       - '4'
       - 5_down
       - swing
-      current_temperature: 21.5
-      temperature: 20
+      current_temperature: 20
+      temperature: 20.5
       fan_mode: '4'
       swing_mode: auto
       vane_horizontal: '3'
