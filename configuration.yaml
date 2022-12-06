@@ -55,7 +55,7 @@ template:
 
   - sensor:
       - name: "Current Price with tax"
-        unit_of_measurement: "snt/kWh"
+        unit_of_measurement: "EUR/kWh"
         device_class: monetary
         state: >
           {% set nordpool = states('sensor.nordpool_kwh_fi_eur_2_095_024') | float %}
