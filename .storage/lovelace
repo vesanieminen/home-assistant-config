@@ -76,15 +76,15 @@
                   "data_generator": "return entity.attributes.raw_today.map((start, index) => {\n  return [new Date(start[\"start\"]).getTime(), entity.attributes.raw_today[index][\"value\"]];\n});\n",
                   "color_threshold": [
                     {
-                      "value": 5,
+                      "value": 0,
                       "color": "#1BA875"
                     },
                     {
-                      "value": 10,
+                      "value": 20,
                       "color": "#1589d6"
                     },
                     {
-                      "value": 20,
+                      "value": 36,
                       "color": "#FF3A49"
                     }
                   ]
