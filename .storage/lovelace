@@ -50,7 +50,8 @@
               "from": "bottom",
               "min": 0,
               "max": 0,
-              "hideunit": true
+              "hideunit": true,
+              "round": 2
             },
             {
               "type": "custom:apexcharts-card",
