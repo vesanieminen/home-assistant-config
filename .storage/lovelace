@@ -126,7 +126,7 @@
               "min": 0,
               "max": 0,
               "hideunit": true,
-              "round": 3
+              "round": 2
             },
             {
               "type": "thermostat",
