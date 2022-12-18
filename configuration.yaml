@@ -58,7 +58,7 @@ template:
         unit_of_measurement: "EUR/kWh"
         device_class: monetary
         state: >
-          {% set nordpool = states('sensor.nordpool_kwh_fi_eur_2_095_024') | float %}
+          {% set nordpool = states('sensor.nordpool_kwh_fi_eur_2_095_0') | float %}
           {{ nordpool * 1.1 | round(2, default=0)}}
 
   - sensor:
@@ -66,7 +66,7 @@ template:
         unique_id: "electricity_price_euros"
         unit_of_measurement: "EUR/kWh"
         state: >
-          {% set nordpool = states('sensor.nordpool_kwh_fi_eur_2_095_024') | float %}
+          {% set nordpool = states('sensor.nordpool_kwh_fi_eur_2_095_0') | float %}
 
           {{ nordpool * 1.1 * 1.0030 / 100 + 7.35 / 100 | round(1, default=0) }}
   - sensor:

@@ -45,7 +45,7 @@
             {
               "type": "custom:bignumber-card",
               "title": "Sähkön hinta",
-              "entity": "sensor.nordpool_kwh_fi_eur_2_095_024",
+              "entity": "sensor.current_price_with_tax",
               "scale": "75px",
               "from": "bottom",
               "min": 0,
@@ -71,9 +71,9 @@
               },
               "series": [
                 {
-                  "entity": "sensor.nordpool_kwh_fi_eur_2_095_024",
+                  "entity": "sensor.nordpool_kwh_fi_eur_2_095_0",
                   "type": "column",
-                  "data_generator": "return entity.attributes.raw_today.map((start, index) => {\n  return [new Date(start[\"start\"]).getTime(), entity.attributes.raw_today[index][\"value\"]];\n});\n",
+                  "data_generator": "return entity.attributes.raw_today.map((start, index) => {\n  return [new Date(start[\"start\"]).getTime(), entity.attributes.raw_today[index][\"value\"] * 1.1];\n});\n",
                   "color_threshold": [
                     {
                       "value": 0,
