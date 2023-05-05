@@ -21,8 +21,19 @@
             },
             {
               "type": "custom:bignumber-card",
-              "title": "Tuotanto nyt",
+              "title": "Tuotanto (W)",
               "entity": "sensor.current_production",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0,
+              "hideunit": true,
+              "round": 0
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Auton akku (%)",
+              "entity": "sensor.tyyne_battery",
               "scale": "75px",
               "from": "bottom",
               "min": 0,

@@ -27,9 +27,9 @@
       - '4'
       - 5_down
       - swing
-      current_temperature: 21
-      temperature: 21
-      fan_mode: '3'
+      current_temperature: 22
+      temperature: 23
+      fan_mode: '4'
       swing_mode: auto
       vane_horizontal: '3'
       vane_horizontal_positions:
@@ -87,8 +87,8 @@
       - '4'
       - 5_down
       - swing
-      current_temperature: 21
-      temperature: 21
+      current_temperature: 22
+      temperature: 22
       fan_mode: '3'
       swing_mode: auto
       vane_horizontal: '3'

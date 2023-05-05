@@ -39,6 +39,15 @@
         "mode": "storage",
         "url_path": "lovelace-kaikki",
         "id": "lovelace_kaikki"
+      },
+      {
+        "show_in_sidebar": true,
+        "icon": "mdi:car",
+        "title": "Tyyne",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "dashboard-tyyne",
+        "id": "dashboard_tyyne"
       }
     ]
   }
