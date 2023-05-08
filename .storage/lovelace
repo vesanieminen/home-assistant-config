@@ -83,7 +83,7 @@
               },
               "series": [
                 {
-                  "entity": "sensor.nordpool_kwh_fi_eur_2_095_0",
+                  "entity": "sensor.nordpool_kwh_fi_eur_2_095_01",
                   "type": "column",
                   "name": "Hinta",
                   "data_generator": "return entity.attributes.raw_today.map((start, index) => {\n  return [new Date(start[\"start\"]).getTime(), entity.attributes.raw_today[index][\"value\"] * 1.1];\n});\n",

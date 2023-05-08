@@ -2,9 +2,9 @@ import logging
 from collections import defaultdict
 from operator import itemgetter
 from statistics import mean
+from decimal import Decimal
 
 import pytz
-from homeassistant.helpers.template import Template, is_template_string
 from homeassistant.util import dt as dt_util
 from pytz import timezone
 
@@ -21,6 +21,24 @@ __all__ = [
 ]
 
 _LOGGER = logging.getLogger(__name__)
+
+
+def exceptions_raiser():
+    """Utility to check that all exceptions are raised."""
+    import aiohttp
+    import random
+
+    exs = [KeyError, aiohttp.ClientError, None, None, None]
+    got = random.choice(exs)
+    if got is None:
+        pass
+    else:
+        raise got
+
+
+def round_decimal(number, decimal_places=3):
+    decimal_value = Decimal(number)
+    return decimal_value.quantize(Decimal(10) ** -decimal_places)
 
 
 def add_junk(d):
@@ -51,6 +69,7 @@ def time_in_range(start, end, x):
 
 
 def end_of(d, typ_="hour"):
+    """Return end our hour"""
     if typ_ == "hour":
         return d.replace(minute=59, second=59, microsecond=999999)
     elif typ_ == "day":
@@ -97,6 +116,7 @@ def has_junk(data) -> bool:
 
 
 def extract_attrs(data) -> dict:
+    """extract attrs"""
     d = defaultdict(list)
     items = [i.get("value") for i in data]
 
@@ -116,16 +136,3 @@ def extract_attrs(data) -> dict:
         return d
 
     return data
-
-
-'''
-def as_tz(dattim, tz=None):
-    """Convert a UTC datetime object to local time zone."""
-
-    if dattim.tzinfo is None:
-        dattim = UTC.localize(dattim)
-
-    return dattim.astimezone(timezone(tz))
-
-
-'''

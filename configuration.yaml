@@ -58,7 +58,7 @@ template:
         unit_of_measurement: "EUR/kWh"
         device_class: monetary
         state: >
-          {% set nordpool = states('sensor.nordpool_kwh_fi_eur_2_095_0') | float %}
+          {% set nordpool = states('sensor.nordpool_kwh_fi_eur_2_095_01') | float %}
           {{ nordpool * 1.1 | round(2, default=0)}}
 
   - sensor:
@@ -66,9 +66,9 @@ template:
         unique_id: "electricity_price_euros"
         unit_of_measurement: "EUR/kWh"
         state: >
-          {% set nordpool = states('sensor.nordpool_kwh_fi_eur_2_095_0') | float %}
+          {% set nordpool = states('sensor.nordpool_kwh_fi_eur_2_095_01') | float %}
 
-          {{ nordpool * 1.1 * 1.0030 / 100 + 7.35 / 100 | round(1, default=0) }}
+          {{ nordpool * 1.0030 / 100 + 7.35 / 100 | round(1, default=0) }}
   - sensor:
       - name: "Date and time"
         state: "{{ as_timestamp(states('sensor.date_time_iso')) | timestamp_custom('%A %B %-d, %I:%M %p') }}"
@@ -80,7 +80,7 @@ sensor:
   - platform: nordpool
 
     # Should the prices include vat? Default True
-    VAT: False
+    VAT: True
 
     # What currency the api fetches the prices in
     # this is only need if you want a sensor in a non local currency

@@ -5,9 +5,11 @@ from datetime import date, datetime, timedelta
 
 from dateutil import tz
 from dateutil.parser import parse as parse_dt
+import backoff
+import aiohttp
 from nordpool.elspot import Prices
 
-from .misc import add_junk
+from .misc import add_junk, exceptions_raiser
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -40,9 +42,9 @@ tzs = {
 
 
 # List of page index for hourly data
-# Some is disable as the don't contain the other currencies NOK etc
-# or there are som issues with data paring for some one the, DataStartdate
-# Lets comeback and fix that later, just need to adjust the self._parser.
+# Some are disabled as they don't contain the other currencies, NOK etc,
+# or there are some issues with data parsing for some ones' DataStartdate.
+# Lets come back and fix that later, just need to adjust the self._parser.
 # DataEnddate: "2021-02-11T00:00:00"
 # DataStartdate: "0001-01-01T00:00:00"
 COUNTRY_BASE_PAGE = {
@@ -131,19 +133,26 @@ def join_result_for_correct_time(results, dt):
 
             for val in values:
                 local = val["start"].astimezone(zone)
+                local_end = val["end"].astimezone(zone)
                 if start_of_day <= local and local <= end_of_day:
-                    fin["areas"][key]["values"].append(val)
-
-    # _LOGGER.debug("Combines result: %s", fin)
+                    if local == local_end:
+                        _LOGGER.info(
+                            "Hour has the same start and end, most likly due to dst change %s exluded this hour",
+                            val,
+                        )
+                    else:
+                        fin["areas"][key]["values"].append(val)
 
     return fin
 
 
 class AioPrices(Prices):
-    def __init__(self, currency, client, tz=None):
+    """Interface"""
+
+    def __init__(self, currency, client, timeezone=None):
         super().__init__(currency)
         self.client = client
-        self.tz = tz
+        self.timeezone = timeezone
         self.API_URL_CURRENCY = "https://www.nordpoolgroup.com/api/marketdata/page/%s"
 
     async def _io(self, url, **kwargs):
@@ -153,8 +162,8 @@ class AioPrices(Prices):
 
         return await resp.json()
 
-    async def _fetch_json(self, data_type, end_date=None, areas=None):
-        """ Fetch JSON from API """
+    async def _fetch_json(self, data_type, end_date=None):
+        """Fetch JSON from API"""
         # If end_date isn't set, default to tomorrow
         if end_date is None:
             end_date = date.today() + timedelta(days=1)
@@ -168,7 +177,10 @@ class AioPrices(Prices):
             endDate=end_date.strftime("%d-%m-%Y"),
         )
 
-    async def fetch(self, data_type, end_date=None, areas=[]):
+    # Add more exceptions as we find them. KeyError is raised when the api return
+    # junk due to currency not being available in the data.
+    @backoff.on_exception(backoff.expo, (aiohttp.ClientError, KeyError), logger=_LOGGER)
+    async def fetch(self, data_type, end_date=None, areas=None):
         """
         Fetch data from API.
         Inputs:
@@ -189,89 +201,58 @@ class AioPrices(Prices):
                 - list of values (dictionary with start and endtime and value)
                 - possible other values, such as min, max, average for hourly
         """
+        if areas is None:
+            areas = []
 
-        # Check how to handle all time zone in this,
-        # dunno how to do this yet.
-        # stock = datetime.utcnow().astimezone(tz.gettz("Europe/Stockholm"))
-        # stock_offset = stock.utcoffset().total_seconds()
-        # compare utc offset
-        if self.tz == tz.gettz("Europe/Stockholm"):
-            data = await self._fetch_json(data_type, end_date, areas)
-            return self._parse_json(data, areas)
-        else:
-            yesterday = datetime.now() - timedelta(days=1)
-            today = datetime.now()
-            tomorrow = datetime.now() + timedelta(days=1)
+        yesterday = datetime.now() - timedelta(days=1)
+        today = datetime.now()
+        tomorrow = datetime.now() + timedelta(days=1)
 
-            # days = [yesterday, today, tomorrow]
-            # Workaround for api changes.
-            # Disabled for now as nordpool have fixed the api endpoint that we used.
-            # if self.currency != "EUR":
-            #    # Only need to check for today price
-            #    # as this is only available for dk, nor, se
-            #    # and all of them is in the corrent timezone.
-            #    days = [today, tomorrow]
-            #    idx_list = COUNTRY_BASE_PAGE.values()
-            #    stuff = []
-            #    for d in days:
-            #        dat = {"areas": {}}
-            #        for pageidx in idx_list:
-            #            task = self._io(
-            #                self.API_URL_CURRENCY % pageidx,
-            #                currency=self.currency,
-            #                endDate=d.strftime("%d-%m-%Y"),
-            #            )
-            #            data = await task
-            #
-            #            try:
-            #                jd = self._parse_json(data, areas)
-            #
-            #               for key, value in jd.get("areas").items():
-            #                    dat["areas"][key] = value
-            #
-            #            except Exception as e:
-            #                _LOGGER.debug("Error with %s %s", d, pageidx)
-            #                raise
-            #
-            #        stuff.append(dat)
-            #
-            #    return join_result_for_correct_time(stuff, end_date)
+        jobs = [
+            self._fetch_json(data_type, yesterday),
+            self._fetch_json(data_type, today),
+            self._fetch_json(data_type, tomorrow),
+        ]
 
-            # else:
+        res = await asyncio.gather(*jobs)
 
-            jobs = [
-                self._fetch_json(data_type, yesterday),
-                self._fetch_json(data_type, today),
-                self._fetch_json(data_type, tomorrow),
-            ]
+        raw = [self._parse_json(i, areas) for i in res]
+        # Just to test should be removed
+        # exceptions_raiser()
+        return join_result_for_correct_time(raw, end_date)
 
-            res = await asyncio.gather(*jobs)
-
-            raw = [self._parse_json(i, areas) for i in res]
-            return join_result_for_correct_time(raw, end_date)
-
-    async def hourly(self, end_date=None, areas=[]):
-        """ Helper to fetch hourly data, see Prices.fetch() """
+    async def hourly(self, end_date=None, areas=None):
+        """Helper to fetch hourly data, see Prices.fetch()"""
+        if areas is None:
+            areas = []
         return await self.fetch(self.HOURLY, end_date, areas)
 
-    async def daily(self, end_date=None, areas=[]):
-        """ Helper to fetch daily data, see Prices.fetch() """
+    async def daily(self, end_date=None, areas=None):
+        """Helper to fetch daily data, see Prices.fetch()"""
+        if areas is None:
+            areas = []
         return await self.fetch(self.DAILY, end_date, areas)
 
-    async def weekly(self, end_date=None, areas=[]):
-        """ Helper to fetch weekly data, see Prices.fetch() """
+    async def weekly(self, end_date=None, areas=None):
+        """Helper to fetch weekly data, see Prices.fetch()"""
+        if areas is None:
+            areas = []
         return await self.fetch(self.WEEKLY, end_date, areas)
 
-    async def monthly(self, end_date=None, areas=[]):
-        """ Helper to fetch monthly data, see Prices.fetch() """
+    async def monthly(self, end_date=None, areas=None):
+        """Helper to fetch monthly data, see Prices.fetch()"""
+        if areas is None:
+            areas = []
         return await self.fetch(self.MONTHLY, end_date, areas)
 
-    async def yearly(self, end_date=None, areas=[]):
-        """ Helper to fetch yearly data, see Prices.fetch() """
+    async def yearly(self, end_date=None, areas=None):
+        """Helper to fetch yearly data, see Prices.fetch()"""
+        if areas is None:
+            areas = []
         return await self.fetch(self.YEARLY, end_date, areas)
 
     def _conv_to_float(self, s):
-        """ Convert numbers to float. Return infinity, if conversion fails. """
+        """Convert numbers to float. Return infinity, if conversion fails."""
         try:
             return float(s.replace(",", ".").replace(" ", ""))
         except ValueError:
