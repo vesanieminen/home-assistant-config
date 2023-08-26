@@ -100,7 +100,7 @@ MAP_CHARGE_STATE = {
 class TeslaMate:
     """TeslaMate Connector.
 
-    Manages connnections to MQTT topics exposed by TeslaMate.
+    Manages connections to MQTT topics exposed by TeslaMate.
     """
 
     def __init__(
@@ -108,7 +108,7 @@ class TeslaMate:
         hass: HomeAssistant,
         coordinators: list["TeslaDataUpdateCoordinator"],
         cars: dict[str, TeslaCar],
-    ):
+    ) -> None:
         """Init Class."""
         self.cars = cars
         self.hass = hass
@@ -297,22 +297,22 @@ class TeslaMate:
         if mqtt_attr in MAP_DRIVE_STATE:
             attr, cast = MAP_DRIVE_STATE[mqtt_attr]
             self.update_drive_state(car, attr, cast(msg.payload))
-            coordinator.async_update_listeners()
+            coordinator.async_update_listeners_debounced()
 
         elif mqtt_attr in MAP_VEHICLE_STATE:
             attr, cast = MAP_VEHICLE_STATE[mqtt_attr]
             self.update_vehicle_state(car, attr, cast(msg.payload))
-            coordinator.async_update_listeners()
+            coordinator.async_update_listeners_debounced()
 
         elif mqtt_attr in MAP_CLIMATE_STATE:
             attr, cast = MAP_CLIMATE_STATE[mqtt_attr]
             self.update_climate_state(car, attr, cast(msg.payload))
-            coordinator.async_update_listeners()
+            coordinator.async_update_listeners_debounced()
 
         elif mqtt_attr in MAP_CHARGE_STATE:
             attr, cast = MAP_CHARGE_STATE[mqtt_attr]
             self.update_charge_state(car, attr, cast(msg.payload))
-            coordinator.async_update_listeners()
+            coordinator.async_update_listeners_debounced()
 
     @staticmethod
     def update_drive_state(car: TeslaCar, attr, value):
