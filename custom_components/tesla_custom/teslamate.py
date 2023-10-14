@@ -29,20 +29,33 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-def cast_odometer(odometer: float) -> float:
+def cast_km_to_miles(km_to_convert: float) -> float:
     """Convert KM to Miles.
 
-    The Tesla API natively returns the Odometer in Miles.
-    TeslaMate returns the Odometer in KMs.
-    We need to convert to Miles so the Odometer sensor calculates
+    The Tesla API natively returns properties in Miles.
+    TeslaMate returns some properties in KMs.
+    We need to convert to Miles so the home assistant sensor calculates
     properly.
     """
-    odometer_km = float(odometer)
-    odometer_miles = DistanceConverter.convert(
-        odometer_km, UnitOfLength.KILOMETERS, UnitOfLength.MILES
-    )
+    km = float(km_to_convert)
+    miles = DistanceConverter.convert(km, UnitOfLength.KILOMETERS, UnitOfLength.MILES)
 
-    return odometer_miles
+    return miles
+
+
+def cast_plugged_in(val: str) -> str:
+    """Convert boolean string for plugged_in value."""
+    return "Connected" if cast_bool(val) else "Disconnected"
+
+
+def cast_bool(val: str) -> bool:
+    """Convert bool string to actual bool."""
+    return val.lower() in ["true", "True"]
+
+
+def cast_trunk_open(val: str) -> int:
+    """Convert bool string to trunk/frunk open/close value."""
+    return 255 if cast_bool(val) else 0
 
 
 def cast_speed(speed: int) -> int:
@@ -70,9 +83,10 @@ MAP_DRIVE_STATE = {
 }
 
 MAP_CLIMATE_STATE = {
-    "is_climate_on": ("is_climate_on", bool),
+    "is_climate_on": ("is_climate_on", cast_bool),
     "inside_temp": ("inside_temp", float),
     "outside_temp": ("outside_temp", float),
+    "is_preconditioning": ("is_preconditioning", cast_bool),
 }
 
 MAP_VEHICLE_STATE = {
@@ -80,13 +94,17 @@ MAP_VEHICLE_STATE = {
     "tpms_pressure_fr": ("tpms_pressure_fr", float),
     "tpms_pressure_rl": ("tpms_pressure_rl", float),
     "tpms_pressure_rr": ("tpms_pressure_rr", float),
-    "locked": ("locked", bool),
-    "sentry_mode": ("sentry_mode", bool),
-    "odometer": ("odometer", cast_odometer),
+    "locked": ("locked", cast_bool),
+    "sentry_mode": ("sentry_mode", cast_bool),
+    "odometer": ("odometer", cast_km_to_miles),
+    "trunk_open": ("rt", cast_trunk_open),
+    "frunk_open": ("ft", cast_trunk_open),
+    "is_user_present": ("is_user_present", cast_bool),
 }
 
 MAP_CHARGE_STATE = {
     "battery_level": ("battery_level", float),
+    "est_battery_range_km": ("battery_range", cast_km_to_miles),
     "usable_battery_level": ("usable_battery_level", float),
     "charge_energy_added": ("charge_energy_added", float),
     "charger_actual_current": ("charger_actual_current", int),
@@ -94,6 +112,10 @@ MAP_CHARGE_STATE = {
     "charger_voltage": ("charger_voltage", int),
     "time_to_full_charge": ("time_to_full_charge", float),
     "charge_limit_soc": ("charge_limit_soc", int),
+    "plugged_in": ("charging_state", cast_plugged_in),
+    "charge_port_door_open": ("charge_port_door_open", cast_bool),
+    "charge_current_request": ("charge_current_request", int),
+    "charge_current_request_max": ("charge_current_request_max", int),
 }
 
 
@@ -130,9 +152,7 @@ class TeslaMate:
         if mqtt_config_entry_enabled(self.hass):
             await self._unsub_mqtt()
         else:
-            logger.warning(
-                "Cannot unsub from TeslaMate as MQTT has not been configured."
-            )
+            logger.info("Cannot unsub from TeslaMate as MQTT has not been configured.")
 
         return True
 
@@ -287,7 +307,7 @@ class TeslaMate:
 
         coordinator = self.coordinators[car.vin]
 
-        logger.info(
+        logger.debug(
             "Got %s from MQTT for VIN:%s | TeslsMateID:%s",
             mqtt_attr,
             car.vin,

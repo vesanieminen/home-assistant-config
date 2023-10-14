@@ -15,7 +15,25 @@
                   "entity": "sensor.nibe_32275_44896"
                 },
                 {
+                  "entity": "sensor.nibe_32275_44897"
+                },
+                {
+                  "entity": "sensor.nibe_32275_43009"
+                },
+                {
+                  "entity": "sensor.nibe_32275_40008"
+                },
+                {
+                  "entity": "sensor.nibe_32275_40012"
+                },
+                {
                   "entity": "sensor.nibe_32275_43084"
+                },
+                {
+                  "entity": "sensor.nibe_32275_40013"
+                },
+                {
+                  "entity": "sensor.nibe_32275_40014"
                 },
                 {
                   "entity": "sensor.current_consumption",
@@ -57,21 +75,6 @@
                 },
                 {
                   "entity": "sensor.nibe_32275_10001"
-                },
-                {
-                  "entity": "sensor.nibe_32275_43009"
-                },
-                {
-                  "entity": "sensor.nibe_32275_40008"
-                },
-                {
-                  "entity": "sensor.nibe_32275_40012"
-                },
-                {
-                  "entity": "sensor.nibe_32275_40014"
-                },
-                {
-                  "entity": "sensor.nibe_32275_40013"
                 },
                 {
                   "entity": "sensor.nibe_32275_40023"
