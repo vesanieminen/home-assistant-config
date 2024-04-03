@@ -14,17 +14,11 @@ from homeassistant.components.sensor import (
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
-    ELECTRIC_CURRENT_AMPERE,
-    ELECTRIC_CURRENT_MILLIAMPERE,
-    ELECTRIC_POTENTIAL_MILLIVOLT,
-    ELECTRIC_POTENTIAL_VOLT,
-    ENERGY_KILO_WATT_HOUR,
-    ENERGY_MEGA_WATT_HOUR,
-    ENERGY_WATT_HOUR,
-    TEMP_CELSIUS,
-    TEMP_FAHRENHEIT,
-    TEMP_KELVIN,
-    TIME_HOURS,
+    UnitOfElectricCurrent,
+    UnitOfElectricPotential,
+    UnitOfEnergy,
+    UnitOfTemperature,
+    UnitOfTime,
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import DeviceInfo, EntityCategory
@@ -137,7 +131,7 @@ PARAMETER_SENSORS = (
         device_class=SensorDeviceClass.DURATION,
         name="compressor operating time hot water",
         state_class=SensorStateClass.TOTAL_INCREASING,
-        native_unit_of_measurement=TIME_HOURS,
+        native_unit_of_measurement=UnitOfTime.HOURS,
         icon="mdi:clock",
     ),
     NibeSensorEntityDescription(
@@ -145,7 +139,7 @@ PARAMETER_SENSORS = (
         device_class=SensorDeviceClass.DURATION,
         name="compressor operating time",
         state_class=SensorStateClass.TOTAL_INCREASING,
-        native_unit_of_measurement=TIME_HOURS,
+        native_unit_of_measurement=UnitOfTime.HOURS,
         icon="mdi:clock",
     ),
     NibeSensorEntityDescription(
@@ -196,54 +190,54 @@ PARAMETER_SENSORS = (
     NibeSensorEntityDescription(
         key="47407",
         name="AUX5",
-        entity_category=EntityCategory.CONFIG,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     NibeSensorEntityDescription(
         key="47408",
         name="AUX4",
-        entity_category=EntityCategory.CONFIG,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     NibeSensorEntityDescription(
         key="47409",
         name="AUX3",
-        entity_category=EntityCategory.CONFIG,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     NibeSensorEntityDescription(
         key="47410",
         name="AUX2",
-        entity_category=EntityCategory.CONFIG,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     NibeSensorEntityDescription(
         key="47411",
         name="AUX1",
-        entity_category=EntityCategory.CONFIG,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     NibeSensorEntityDescription(
         key="47412",
         name="X7",
-        entity_category=EntityCategory.CONFIG,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     NibeSensorEntityDescription(
         key="48745",
         name="country",
-        entity_category=EntityCategory.CONFIG,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     NibeSensorEntityDescription(
         key="47212",
         name="set max electrical add.",
-        entity_category=EntityCategory.CONFIG,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     NibeSensorEntityDescription(
         key="47214",
         device_class=SensorDeviceClass.CURRENT,
         name="fuse size",
-        entity_category=EntityCategory.CONFIG,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     NibeSensorEntityDescription(
         key="43122",
         device_class=SensorDeviceClass.FREQUENCY,
         name="allowed compr. freq. min",
-        entity_category=EntityCategory.CONFIG,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
 )
 PARAMETER_SENSORS_LOOKUP = {x.key: x for x in PARAMETER_SENSORS}
@@ -274,13 +268,13 @@ class NibeSensor(NibeParameterEntity, SensorEntity):
             return data
 
         unit = self.native_unit_of_measurement
-        if unit in {TEMP_CELSIUS, TEMP_FAHRENHEIT, TEMP_KELVIN}:
+        if unit in UnitOfTemperature._value2member_map_:
             return SensorDeviceClass.TEMPERATURE
-        elif unit in {ELECTRIC_CURRENT_AMPERE, ELECTRIC_CURRENT_MILLIAMPERE}:
+        elif unit in UnitOfElectricCurrent._value2member_map_:
             return SensorDeviceClass.CURRENT
-        elif unit in {ELECTRIC_POTENTIAL_VOLT, ELECTRIC_POTENTIAL_MILLIVOLT}:
+        elif unit in UnitOfElectricPotential._value2member_map_:
             return SensorDeviceClass.VOLTAGE
-        elif unit in {ENERGY_WATT_HOUR, ENERGY_KILO_WATT_HOUR, ENERGY_MEGA_WATT_HOUR}:
+        elif unit in UnitOfEnergy._value2member_map_:
             return SensorDeviceClass.ENERGY
 
         return None
@@ -290,7 +284,7 @@ class NibeSensor(NibeParameterEntity, SensorEntity):
         """Return state class of unit."""
         if data := super().state_class:
             return data
-        if self.native_unit_of_measurement == ENERGY_KILO_WATT_HOUR:
+        if self.native_unit_of_measurement == UnitOfEnergy.KILO_WATT_HOUR:
             return SensorStateClass.TOTAL_INCREASING
         if self.native_unit_of_measurement:
             return SensorStateClass.MEASUREMENT
@@ -313,6 +307,7 @@ class NibeSystemSensorEntityDescription(SensorEntityDescription):
     """Description of a nibe system sensor."""
 
     state_fn: Callable[[NibeSystem], StateType] = lambda x: None
+    attributes_fn: Callable[[NibeSystem], dict[str, str | None]] = lambda x: None
 
 
 SYSTEM_SENSORS: tuple[NibeSystemSensorEntityDescription, ...] = (
@@ -341,6 +336,13 @@ SYSTEM_SENSORS: tuple[NibeSystemSensorEntityDescription, ...] = (
         entity_category=EntityCategory.DIAGNOSTIC,
         state_fn=lambda x: str(x.software["current"]["name"]) if x.software else None,
     ),
+    NibeSystemSensorEntityDescription(
+        key="statusCount",
+        name="status count",
+        entity_category=EntityCategory.DIAGNOSTIC,
+        state_fn=lambda x: len(x.statuses),
+        attributes_fn=lambda x: {"statuses": x.statuses},
+    ),
 )
 
 
@@ -367,3 +369,8 @@ class NibeSystemSensor(CoordinatorEntity[NibeSystem], SensorEntity):
     def native_value(self) -> StateType:
         """Get the state data from system class."""
         return self.entity_description.state_fn(self._system)
+
+    @property
+    def extra_state_attributes(self) -> dict[str, str | None]:
+        """Get the attributes (extra state) data from system class."""
+        return self.entity_description.attributes_fn(self._system)

@@ -12,6 +12,15 @@
               "type": "entities",
               "entities": [
                 {
+                  "entity": "sensor.nibe_32275_40083"
+                },
+                {
+                  "entity": "sensor.nibe_32275_40081"
+                },
+                {
+                  "entity": "sensor.nibe_32275_40079"
+                },
+                {
                   "entity": "sensor.nibe_32275_44896"
                 },
                 {

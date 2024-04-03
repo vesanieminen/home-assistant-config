@@ -14,14 +14,83 @@
               "type": "custom:bignumber-card",
               "title": "Sisälämpötila",
               "entity": "sensor.ilpo_room_temperature",
-              "scale": "60px",
+              "scale": "75px",
               "from": "bottom",
               "min": 0,
               "max": 0
             },
             {
               "type": "custom:bignumber-card",
-              "title": "Tuotanto (W)",
+              "title": "Ulkolämpötila",
+              "entity": "sensor.nibe_32275_40004",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Sähkön hinta",
+              "entity": "sensor.current_price_with_tax",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0,
+              "hideunit": true,
+              "round": 2
+            },
+            {
+              "type": "energy-sources-table"
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Poistoilma",
+              "entity": "sensor.nibe_32275_40025",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0,
+              "hideunit": false,
+              "round": 1
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Tuloilma",
+              "entity": "sensor.nibe_32275_40075",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Kustannus (€/h)",
+              "entity": "sensor.current_cost",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0,
+              "hideunit": true,
+              "round": 2
+            },
+            {
+              "type": "thermostat",
+              "entity": "climate.ilpo"
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Kulutus nyt (W)",
+              "entity": "sensor.current_consumption",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0,
+              "hideunit": true,
+              "round": 0
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Tuotanto nyt (W)",
               "entity": "sensor.current_production",
               "scale": "75px",
               "from": "bottom",
@@ -42,27 +111,26 @@
               "round": 0
             },
             {
-              "type": "energy-sources-table"
-            },
-            {
               "type": "custom:bignumber-card",
-              "title": "Tuloilma",
-              "entity": "sensor.nibe_32275_40075",
-              "scale": "60px",
-              "from": "bottom",
-              "min": 0,
-              "max": 0
-            },
-            {
-              "type": "custom:bignumber-card",
-              "title": "Sähkön hinta",
-              "entity": "sensor.current_price_with_tax",
+              "title": "Menolämpötila",
+              "entity": "sensor.nibe_32275_40008",
               "scale": "75px",
               "from": "bottom",
               "min": 0,
               "max": 0,
-              "hideunit": true,
-              "round": 2
+              "hideunit": false,
+              "round": 1
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Paluulämpötila",
+              "entity": "sensor.nibe_32275_40012",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0,
+              "hideunit": false,
+              "round": 1
             },
             {
               "type": "custom:apexcharts-card",
@@ -108,41 +176,6 @@
                   "min": 0
                 }
               ]
-            },
-            {
-              "type": "custom:bignumber-card",
-              "title": "Ulkolämpötila",
-              "entity": "sensor.nibe_32275_40004",
-              "scale": "60px",
-              "from": "bottom",
-              "min": 0,
-              "max": 0
-            },
-            {
-              "type": "custom:bignumber-card",
-              "title": "Kulutus nyt (W)",
-              "entity": "sensor.current_consumption",
-              "scale": "75px",
-              "from": "bottom",
-              "min": 0,
-              "max": 0,
-              "hideunit": true,
-              "round": 0
-            },
-            {
-              "type": "custom:bignumber-card",
-              "title": "Kustannus (€/h)",
-              "entity": "sensor.current_cost",
-              "scale": "75px",
-              "from": "bottom",
-              "min": 0,
-              "max": 0,
-              "hideunit": true,
-              "round": 2
-            },
-            {
-              "type": "thermostat",
-              "entity": "climate.ilpo"
             }
           ]
         }

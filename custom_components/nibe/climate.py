@@ -24,7 +24,7 @@ from homeassistant.const import (
     CONF_NAME,
     STATE_UNAVAILABLE,
     STATE_UNKNOWN,
-    TEMP_CELSIUS,
+    UnitOfTemperature,
 )
 from homeassistant.core import HomeAssistant, State
 from homeassistant.helpers.event import (
@@ -204,7 +204,7 @@ class NibeClimateRoom(NibeClimate):
     @property
     def temperature_unit(self):
         """Return temperature unit used."""
-        return self.get_unit(self._climate.room_temp, TEMP_CELSIUS)
+        return self.get_unit(self._climate.room_temp, UnitOfTemperature.CELSIUS)
 
     @property
     def current_temperature(self):
@@ -289,7 +289,7 @@ class NibeClimateSupply(NibeClimate):
     @property
     def temperature_unit(self):
         """Return used temperature unit."""
-        return self.get_unit(self._climate.supply_temp, TEMP_CELSIUS)
+        return self.get_unit(self._climate.supply_temp, UnitOfTemperature.CELSIUS)
 
     @property
     def current_temperature(self):
@@ -374,6 +374,8 @@ class NibeClimateSupply(NibeClimate):
 class NibeThermostat(ClimateEntity, RestoreEntity):
     """Nibe Smarthome Thermostat."""
 
+    _enable_turn_on_off_backwards_compatibility = False
+
     def __init__(
         self,
         system: NibeSystem,
@@ -394,14 +396,18 @@ class NibeThermostat(ClimateEntity, RestoreEntity):
             DOMAIN_NIBE, self._system_id, self._external_id
         )
         self._attr_hvac_action = None
-        self._attr_supported_features = ClimateEntityFeature.TARGET_TEMPERATURE
+        self._attr_supported_features = (
+            ClimateEntityFeature.TARGET_TEMPERATURE
+            | ClimateEntityFeature.TURN_OFF
+            | ClimateEntityFeature.TURN_ON
+        )
         self._attr_device_info = {
             "identifiers": {(DOMAIN_NIBE, self._system_id)},
         }
         self._attr_target_temperature_step = 0.5
         self._current_temperature_id = current_temperature_id
         self._current_temperature: float | None = None
-        self._attr_temperature_unit = TEMP_CELSIUS
+        self._attr_temperature_unit = UnitOfTemperature.CELSIUS
         self._attr_should_poll = False
         self._valve_position_id = valve_position_id
         self._valve_position: float | None = None
@@ -545,6 +551,14 @@ class NibeThermostat(ClimateEntity, RestoreEntity):
 
         _LOGGER.debug(f"Publish thermostat {data}")
         await self._uplink.post_smarthome_thermostats(self._system_id, data)
+
+    async def async_turn_off(self) -> None:
+        """Turn the entity off."""
+        await self.async_set_hvac_mode(HVACMode.OFF)
+
+    async def async_turn_on(self) -> None:
+        """Turn the entity on."""
+        await self.async_set_hvac_mode(HVACMode.AUTO)
 
     async def async_update(self):
         """Explicitly update thermostat state."""
