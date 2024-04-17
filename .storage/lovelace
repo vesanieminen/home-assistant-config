@@ -22,7 +22,7 @@
             {
               "type": "custom:bignumber-card",
               "title": "Ulkolämpötila",
-              "entity": "sensor.nibe_32275_40004",
+              "entity": "sensor.f470_r_3x400v_current_outd_temp_bt1",
               "scale": "75px",
               "from": "bottom",
               "min": 0,
@@ -45,7 +45,7 @@
             {
               "type": "custom:bignumber-card",
               "title": "Poistoilma",
-              "entity": "sensor.nibe_32275_40025",
+              "entity": "sensor.f470_r_3x400v_exhaust_air_bt20",
               "scale": "75px",
               "from": "bottom",
               "min": 0,
@@ -55,12 +55,14 @@
             },
             {
               "type": "custom:bignumber-card",
-              "title": "Tuloilma",
-              "entity": "sensor.nibe_32275_40075",
+              "title": "Ylituotanto (W)",
+              "entity": "sensor.production_surplus",
               "scale": "75px",
               "from": "bottom",
               "min": 0,
-              "max": 0
+              "max": 0,
+              "round": 0,
+              "hideunit": true
             },
             {
               "type": "custom:bignumber-card",

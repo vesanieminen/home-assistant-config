@@ -27,6 +27,7 @@ scene: !include scenes.yaml
 template:
   - sensor:
       - name: "Current Production"
+        unique_id: "current_production"
         unit_of_measurement: "W"
         device_class: power
         icon: "mdi:flash"
@@ -38,11 +39,22 @@ template:
         unit_of_measurement: "W"
         device_class: power
         state: >
-          {% set c1 = states('sensor.nibe_32275_40083') | float %}
-          {% set c2 = states('sensor.nibe_32275_40081') | float %}
-          {% set c3 = states('sensor.nibe_32275_40079') | float %}
+          {% set c1 = states('sensor.f470_r_3x400v_current_be1') | float %}
+          {% set c2 = states('sensor.f470_r_3x400v_current_be2') | float %}
+          {% set c3 = states('sensor.f470_r_3x400v_current_be3') | float %}
 
           {{ (c1 + c2 + c3) * 240 | round(1, default=0) }}
+
+  - sensor:
+      - name: "Production surplus"
+        unique_id: "production_surplus"
+        unit_of_measurement: "W"
+        device_class: power
+        state: >
+          {% set consumption = states('sensor.current_consumption') | float %}
+          {% set production = states('sensor.current_production') | float %}
+          {% set surplus = production - consumption | float %}
+          {{ surplus if surplus > 0 else 0 | round(1, default=0)}}
 
   - sensor:
       - name: "Current cost"

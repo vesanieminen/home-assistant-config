@@ -48,6 +48,15 @@
         "mode": "storage",
         "url_path": "dashboard-tyyne",
         "id": "dashboard_tyyne"
+      },
+      {
+        "id": "map",
+        "icon": "mdi:map",
+        "title": "Map",
+        "url_path": "map",
+        "require_admin": false,
+        "show_in_sidebar": true,
+        "mode": "storage"
       }
     ]
   }
