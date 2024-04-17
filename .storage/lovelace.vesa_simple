@@ -87,6 +87,18 @@
                 },
                 {
                   "entity": "sensor.nibe_32275_40023"
+                },
+                {
+                  "entity": "sensor.current_consumption"
+                },
+                {
+                  "entity": "sensor.current_production"
+                },
+                {
+                  "entity": "sensor.grid_consumption"
+                },
+                {
+                  "entity": "sensor.production_surplus"
                 }
               ]
             },
