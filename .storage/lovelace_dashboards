@@ -57,6 +57,15 @@
         "require_admin": false,
         "show_in_sidebar": true,
         "mode": "storage"
+      },
+      {
+        "id": "dashboard_tuotto",
+        "show_in_sidebar": true,
+        "icon": "mdi:weather-sunny-alert",
+        "title": "Tuotto",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "dashboard-tuotto"
       }
     ]
   }

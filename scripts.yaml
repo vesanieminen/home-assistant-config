@@ -1,0 +1,20 @@
+tyyne_80:
+  alias: Tyyne 80 %
+  sequence:
+  - device_id: 13796480241cc55e1dc70c397429dc64
+    domain: number
+    entity_id: bb1d63696fe0d0ed950f4908c4737a7b
+    type: set_value
+    value: 80
+  mode: single
+  icon: mdi:battery-80
+tyyne_50:
+  alias: Tyyne 50 %
+  sequence:
+  - device_id: 13796480241cc55e1dc70c397429dc64
+    domain: number
+    entity_id: bb1d63696fe0d0ed950f4908c4737a7b
+    type: set_value
+    value: 50
+  mode: single
+  icon: mdi:battery-50
