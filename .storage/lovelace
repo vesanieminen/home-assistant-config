@@ -22,7 +22,7 @@
             {
               "type": "custom:bignumber-card",
               "title": "Ulkolämpötila",
-              "entity": "sensor.f470_r_3x400v_current_outd_temp_bt1",
+              "entity": "sensor.nibef_f470_r_3x400v_current_outd_temp_bt1_40004",
               "scale": "75px",
               "from": "bottom",
               "min": 0,
@@ -45,7 +45,7 @@
             {
               "type": "custom:bignumber-card",
               "title": "Poistoilma",
-              "entity": "sensor.f470_r_3x400v_exhaust_air_bt20",
+              "entity": "sensor.nibef_f470_r_3x400v_exhaust_air_bt20_40025",
               "scale": "75px",
               "from": "bottom",
               "min": 0,
@@ -111,28 +111,6 @@
               "max": 0,
               "hideunit": true,
               "round": 0
-            },
-            {
-              "type": "custom:bignumber-card",
-              "title": "Menolämpötila",
-              "entity": "sensor.nibe_32275_40008",
-              "scale": "75px",
-              "from": "bottom",
-              "min": 0,
-              "max": 0,
-              "hideunit": false,
-              "round": 1
-            },
-            {
-              "type": "custom:bignumber-card",
-              "title": "Paluulämpötila",
-              "entity": "sensor.nibe_32275_40012",
-              "scale": "75px",
-              "from": "bottom",
-              "min": 0,
-              "max": 0,
-              "hideunit": false,
-              "round": 1
             },
             {
               "type": "custom:apexcharts-card",
