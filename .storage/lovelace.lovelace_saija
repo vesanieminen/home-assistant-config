@@ -12,20 +12,26 @@
               "type": "entities",
               "entities": [
                 {
-                  "entity": "sensor.nibe_32275_40004"
-                },
-                {
                   "entity": "sensor.ilpo_room_temperature"
-                },
-                {
-                  "entity": "sensor.nibe_32275_40075"
                 },
                 {
                   "entity": "sensor.current_production",
                   "name": "Aurinkotuotanto nyt"
                 },
                 {
+                  "entity": "sensor.current_consumption"
+                },
+                {
                   "entity": "sensor.nordpool_kwh_fi_eur_2_095_024"
+                },
+                {
+                  "entity": "sensor.production_amps"
+                },
+                {
+                  "entity": "sensor.consumption_amps"
+                },
+                {
+                  "entity": "sensor.tesla_amps"
                 }
               ]
             },

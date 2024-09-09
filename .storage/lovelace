@@ -55,14 +55,14 @@
             },
             {
               "type": "custom:bignumber-card",
-              "title": "Ylituotanto (W)",
-              "entity": "sensor.production_surplus",
+              "title": "Tuloilma",
+              "entity": "sensor.supply_air_bt22_40075",
               "scale": "75px",
               "from": "bottom",
               "min": 0,
               "max": 0,
-              "round": 0,
-              "hideunit": true
+              "hideunit": false,
+              "round": 1
             },
             {
               "type": "custom:bignumber-card",
@@ -100,6 +100,17 @@
               "max": 0,
               "hideunit": true,
               "round": 0
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Ylituotanto (W)",
+              "entity": "sensor.production_surplus",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0,
+              "round": 0,
+              "hideunit": true
             },
             {
               "type": "custom:bignumber-card",
@@ -157,7 +168,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "badges": []
         }
       ]
     }

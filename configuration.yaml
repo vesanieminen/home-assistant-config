@@ -81,7 +81,7 @@ template:
         device_class: monetary
         state: >
           {% set nordpool = states('sensor.nordpool_kwh_fi_eur_2_095_024') | float %}
-          {{ nordpool * 1.1 | round(2, default=0)}}
+          {{ nordpool * 1.255 | round(2, default=0)}}
 
   - sensor:
       - name: "Electricity Price Euros"
@@ -95,6 +95,33 @@ template:
       - name: "Date and time"
         state: "{{ as_timestamp(states('sensor.date_time_iso')) | timestamp_custom('%A %B %-d, %I:%M %p') }}"
         icon: "mdi:calendar-clock"
+
+  - sensor:
+      - name: "Tesla amps"
+        unique_id: "tesla_amps"
+        unit_of_measurement: "A"
+        device_class: current
+        state: >
+          {% set amps = states('sensor.tyyne_charger_power') | float %}
+          {{ amps * 1000 / 230 | round(1, default=0) }}
+
+  - sensor:
+      - name: "Consumption amps"
+        unique_id: "consumption_amps"
+        unit_of_measurement: "A"
+        device_class: current
+        state: >
+          {% set consumption = states('sensor.current_consumption') | float %}
+          {{ consumption / 230 | round(1, default=0) }}
+
+  - sensor:
+      - name: "Production amps"
+        unique_id: "production_amps"
+        unit_of_measurement: "A"
+        device_class: current
+        state: >
+          {% set production = states('sensor.current_production') | float %}
+          {{ production / 230 | round(1, default=0) }}
 
 nordpool:
 
@@ -141,12 +168,12 @@ sensor:
 #      - 'date_time'
 #      - 'date_time_iso'
   
-  - platform: systemmonitor
-    resources:
-      - type: disk_use_percent
-        arg: /config
-      - type: memory_free
-      - type: processor_use
-      - type: processor_temperature
+    #  - platform: systemmonitor
+    #    resources:
+    #      - type: disk_use_percent
+    #        arg: /config
+    #      - type: memory_free
+    #      - type: processor_use
+    #      - type: processor_temperature
 recorder:
     purge_keep_days: 30
