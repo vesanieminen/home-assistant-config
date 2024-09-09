@@ -167,6 +167,23 @@
                   "min": 0
                 }
               ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.production_amps"
+                },
+                {
+                  "entity": "sensor.consumption_amps"
+                },
+                {
+                  "entity": "sensor.surplus_amps"
+                },
+                {
+                  "entity": "sensor.tesla_amps"
+                }
+              ]
             }
           ],
           "badges": []

@@ -123,6 +123,17 @@ template:
           {% set production = states('sensor.current_production') | float %}
           {{ production / 230 | round(1, default=0) }}
 
+  - sensor:
+      - name: "Surplus amps"
+        unique_id: "surplus_amps"
+        unit_of_measurement: "A"
+        device_class: current
+        state: >
+          {% set consumption = states('sensor.current_consumption') | float %}
+          {% set production = states('sensor.current_production') | float %}
+          {% set surplus = (production - consumption) / 230 | float %}
+          {{ surplus if surplus > 0 else 0 | round(1, default=0)}}
+
 nordpool:
 
 sensor:

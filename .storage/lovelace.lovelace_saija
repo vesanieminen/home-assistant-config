@@ -31,6 +31,9 @@
                   "entity": "sensor.consumption_amps"
                 },
                 {
+                  "entity": "sensor.surplus_amps"
+                },
+                {
                   "entity": "sensor.tesla_amps"
                 }
               ]
