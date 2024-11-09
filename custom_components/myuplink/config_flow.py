@@ -23,6 +23,8 @@ from homeassistant.helpers.typing import ConfigType
 
 from .const import (
     CONF_ADDITIONAL_PARAMETER,
+    CONF_DISCONNECTED_AVAILABLE,
+    CONF_ENABLE_SMART_HOME_MODE,
     CONF_EXPERT_MODE,
     CONF_FETCH_FIRMWARE,
     CONF_FETCH_NOTIFICATIONS,
@@ -47,6 +49,10 @@ def get_options_schema(data: ConfigType) -> Schema:
     return vol.Schema(
         {
             vol.Required(
+                CONF_ENABLE_SMART_HOME_MODE,
+                default=data.get(CONF_ENABLE_SMART_HOME_MODE, True),
+            ): selector.BooleanSelector(),
+            vol.Required(
                 CONF_FETCH_FIRMWARE, default=data.get(CONF_FETCH_FIRMWARE, True)
             ): selector.BooleanSelector(),
             vol.Required(
@@ -65,6 +71,10 @@ def get_options_schema(data: ConfigType) -> Schema:
                     unit_of_measurement=UnitOfTime.SECONDS,
                 )
             ),
+            vol.Required(
+                CONF_DISCONNECTED_AVAILABLE,
+                default=data.get(CONF_DISCONNECTED_AVAILABLE, False),
+            ): selector.BooleanSelector(),
             vol.Required(
                 CONF_EXPERT_MODE,
                 default=data.get(CONF_EXPERT_MODE, False),

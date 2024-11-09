@@ -86,9 +86,9 @@
       - '4'
       - 5_down
       - swing
-      current_temperature: 22
-      temperature: 22
-      fan_mode: '3'
+      current_temperature: 21
+      temperature: 20
+      fan_mode: '4'
       swing_mode: auto
       vane_horizontal: '3'
       vane_horizontal_positions:
@@ -109,9 +109,8 @@
       - '4'
       - 5_down
       - swing
-      icon: mdi:heat-pump
-      friendly_name: Ilmalämpöpumppu
-      supported_features: 41
+      friendly_name: Ilpo
+      supported_features: 425
       state: heat
   icon: mdi:sun-clock
   metadata:

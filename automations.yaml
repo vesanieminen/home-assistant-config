@@ -19,8 +19,94 @@
     at: 06:00:00
   condition: []
   action:
-  - service: scene.turn_on
-    target:
+  - target:
       entity_id: scene.morning
     metadata: {}
+    action: scene.turn_on
+  mode: single
+- id: '1726915374887'
+  alias: Ylituotanto alle rajan
+  description: ''
+  triggers:
+  - entity_id:
+    - sensor.surplus_amps
+    below: 200
+    trigger: numeric_state
+  conditions: []
+  actions:
+  - action: notify.mobile_app_v
+    metadata: {}
+    data:
+      message: Ylituotanto alle 200 W
+  mode: single
+- id: '1728297810031'
+  alias: Estä käyttöveden teko
+  description: ''
+  triggers:
+  - trigger: time
+    at: '18:50:00'
+  conditions: []
+  actions:
+  - type: turn_on
+    device_id: 31fce6ef2e5602e967337a631ea35d0c
+    entity_id: 93e3ffec3e0cbefba9b744308355963b
+    domain: switch
+  mode: single
+- id: '1728298318225'
+  alias: Vapauta käyttöveden esto
+  description: ''
+  triggers:
+  - trigger: time
+    at: '20:00:00'
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 31fce6ef2e5602e967337a631ea35d0c
+    entity_id: 93e3ffec3e0cbefba9b744308355963b
+    domain: switch
+  mode: single
+- id: '1730149898240'
+  alias: Aseta vedensäästö päälle
+  description: ''
+  triggers:
+  - trigger: time
+    at: '16:50:00'
+  conditions: []
+  actions:
+  - device_id: 31fce6ef2e5602e967337a631ea35d0c
+    domain: select
+    entity_id: 7923d51d5e17dac91a38fe6d256ad224
+    type: select_option
+    option: economy
+  mode: single
+- id: '1730149979022'
+  alias: Aseta käyttövesi normaaliksi
+  description: ''
+  triggers:
+  - trigger: time
+    at: 06:50:00
+    enabled: false
+  - trigger: time
+    at: '22:00:00'
+  conditions: []
+  actions:
+  - device_id: 31fce6ef2e5602e967337a631ea35d0c
+    domain: select
+    entity_id: 7923d51d5e17dac91a38fe6d256ad224
+    type: select_option
+    option: normal
+  mode: single
+- id: '1730757989469'
+  alias: Aseta käyttövesi luksus asentoon
+  description: ''
+  triggers:
+  - trigger: time
+    at: 03:00:00
+  conditions: []
+  actions:
+  - device_id: 31fce6ef2e5602e967337a631ea35d0c
+    domain: select
+    entity_id: 7923d51d5e17dac91a38fe6d256ad224
+    type: select_option
+    option: luxury
   mode: single

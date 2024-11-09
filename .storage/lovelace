@@ -40,7 +40,15 @@
               "round": 2
             },
             {
-              "type": "energy-sources-table"
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.nibef_f470_r_3x400v_hot_water_charging_bt6_40014"
+                },
+                {
+                  "entity": "sensor.nibef_f470_r_3x400v_hot_water_top_bt7_40013"
+                }
+              ]
             },
             {
               "type": "custom:bignumber-card",
@@ -122,6 +130,9 @@
               "max": 0,
               "hideunit": true,
               "round": 0
+            },
+            {
+              "type": "energy-sources-table"
             },
             {
               "type": "custom:apexcharts-card",

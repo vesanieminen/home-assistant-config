@@ -16,7 +16,7 @@
       {
         "show_in_sidebar": true,
         "icon": "mdi:account",
-        "title": "Saija",
+        "title": "Katsaus",
         "require_admin": false,
         "mode": "storage",
         "url_path": "lovelace-saija",
