@@ -1,5 +1,5 @@
 - id: '1669323438002'
-  name: Night
+  name: Ilpo 22 pyynti - 4 puhallus
   entities:
     climate.ilpo:
       hvac_modes:
@@ -27,10 +27,10 @@
       - '4'
       - 5_down
       - swing
-      current_temperature: 20.5
+      current_temperature: 23.5
       temperature: 22
       fan_mode: '4'
-      swing_mode: auto
+      swing_mode: '3'
       vane_horizontal: '3'
       vane_horizontal_positions:
       - auto
@@ -41,7 +41,7 @@
       - 5_right
       - split
       - swing
-      vane_vertical: auto
+      vane_vertical: '3'
       vane_vertical_positions:
       - auto
       - 1_up
@@ -51,14 +51,14 @@
       - 5_down
       - swing
       friendly_name: Ilpo
-      supported_features: 41
+      supported_features: 425
       state: heat
   icon: mdi:bed
   metadata:
     climate.ilpo:
       entity_only: true
 - id: '1669323710999'
-  name: Morning
+  name: Ilpo 19 pyynti - 4 tuuletin
   entities:
     climate.ilpo:
       hvac_modes:
@@ -86,10 +86,10 @@
       - '4'
       - 5_down
       - swing
-      current_temperature: 21
-      temperature: 20
+      current_temperature: 23.5
+      temperature: 19
       fan_mode: '4'
-      swing_mode: auto
+      swing_mode: '3'
       vane_horizontal: '3'
       vane_horizontal_positions:
       - auto
@@ -100,7 +100,7 @@
       - 5_right
       - split
       - swing
-      vane_vertical: auto
+      vane_vertical: '3'
       vane_vertical_positions:
       - auto
       - 1_up

@@ -12,7 +12,7 @@
           "cards": [
             {
               "type": "custom:bignumber-card",
-              "title": "Sisälämpötila",
+              "title": "Eteinen",
               "entity": "sensor.ilpo_room_temperature",
               "scale": "75px",
               "from": "bottom",
@@ -21,23 +21,25 @@
             },
             {
               "type": "custom:bignumber-card",
-              "title": "Ulkolämpötila",
-              "entity": "sensor.nibef_f470_r_3x400v_current_outd_temp_bt1_40004",
-              "scale": "75px",
-              "from": "bottom",
-              "min": 0,
-              "max": 0
-            },
-            {
-              "type": "custom:bignumber-card",
-              "title": "Sähkön hinta",
-              "entity": "sensor.current_price_with_tax",
+              "title": "Olohuone",
+              "entity": "sensor.olohuoneen_mittari_temperature",
               "scale": "75px",
               "from": "bottom",
               "min": 0,
               "max": 0,
-              "hideunit": true,
-              "round": 2
+              "hideunit": false,
+              "round": 1
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Tallin lämpötila",
+              "entity": "sensor.tallin_mittari_temperature",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0,
+              "hideunit": false,
+              "round": 1
             },
             {
               "type": "entities",
@@ -47,8 +49,107 @@
                 },
                 {
                   "entity": "sensor.nibef_f470_r_3x400v_hot_water_top_bt7_40013"
+                },
+                {
+                  "entity": "sensor.nibef_f470_r_3x400v_calculated_supply_climate_system_1_43009"
+                },
+                {
+                  "entity": "sensor.nibef_f470_r_3x400v_supply_line_bt2_40008"
+                },
+                {
+                  "entity": "sensor.nibef_f470_r_3x400v_return_line_bt3_40012"
+                },
+                {
+                  "entity": "sensor.nibef_f470_r_3x400v_status_compressor_43427"
+                },
+                {
+                  "entity": "sensor.nibef_f470_r_3x400v_int_elec_add_heat_49993"
+                },
+                {
+                  "entity": "sensor.tv_tason_rasia_power"
+                },
+                {
+                  "entity": "sensor.jaakaappi_power"
+                },
+                {
+                  "entity": "sensor.pakastin_power"
+                },
+                {
+                  "entity": "sensor.tallin_rasia_power"
+                },
+                {
+                  "entity": "sensor.keittion_jouluvalo_power"
+                },
+                {
+                  "entity": "binary_sensor.vuotomittari_jakotukki_moisture"
+                },
+                {
+                  "entity": "binary_sensor.vuotomittari_jakotukki_eteinen_moisture"
+                },
+                {
+                  "entity": "binary_sensor.vuotomittari_astianpesukone_moisture"
+                },
+                {
+                  "entity": "binary_sensor.vuotomittari_keittion_allas_moisture"
+                },
+                {
+                  "entity": "binary_sensor.vuotomittari_keittion_allas_lattia_moisture"
+                },
+                {
+                  "entity": "binary_sensor.vuotomittari_jaakaappi_moisture"
+                },
+                {
+                  "entity": "binary_sensor.vuotomittari_pakastin_moisture"
+                },
+                {
+                  "entity": "binary_sensor.etuovi_opening"
+                },
+                {
+                  "entity": "binary_sensor.terassin_ovi_opening"
+                },
+                {
+                  "entity": "binary_sensor.takaovi_opening"
+                },
+                {
+                  "entity": "binary_sensor.autotallin_ovi_opening"
+                },
+                {
+                  "entity": "binary_sensor.autotallin_liiketunnistin_opening"
+                },
+                {
+                  "entity": "sensor.keittion_mittari_temperature"
+                },
+                {
+                  "entity": "sensor.makuuhuone_mittari_temperature"
+                },
+                {
+                  "entity": "sensor.kodinhoitohuoneen_mittari_temperature"
+                },
+                {
+                  "entity": "sensor.elon_mittari_temperature"
+                },
+                {
+                  "entity": "sensor.mikon_mittari_temperature"
+                },
+                {
+                  "entity": "sensor.remin_mittari_temperature"
+                },
+                {
+                  "entity": "sensor.olohuoneen_takaoven_mittari_temperature"
+                },
+                {
+                  "entity": "sensor.olohuoneen_mittari_temperature"
                 }
               ]
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Ulkolämpötila",
+              "entity": "sensor.nibef_f470_r_3x400v_current_outd_temp_bt1_40004",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0
             },
             {
               "type": "custom:bignumber-card",
@@ -73,17 +174,6 @@
               "round": 1
             },
             {
-              "type": "custom:bignumber-card",
-              "title": "Kustannus (€/h)",
-              "entity": "sensor.current_cost",
-              "scale": "75px",
-              "from": "bottom",
-              "min": 0,
-              "max": 0,
-              "hideunit": true,
-              "round": 2
-            },
-            {
               "type": "thermostat",
               "entity": "climate.ilpo"
             },
@@ -100,14 +190,50 @@
             },
             {
               "type": "custom:bignumber-card",
-              "title": "Tuotanto nyt (W)",
-              "entity": "sensor.current_production",
+              "title": "Auton akku (%)",
+              "entity": "sensor.tyyne_battery",
               "scale": "75px",
               "from": "bottom",
               "min": 0,
               "max": 0,
               "hideunit": true,
               "round": 0
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Olohuone",
+              "entity": "sensor.olohuoneen_mittari_humidity",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0,
+              "hideunit": false,
+              "round": 0
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Autotalli",
+              "entity": "sensor.tallin_mittari_humidity",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0,
+              "hideunit": false,
+              "round": 0
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Kustannus (€/h)",
+              "entity": "sensor.current_cost",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0,
+              "hideunit": true,
+              "round": 2
+            },
+            {
+              "type": "energy-sources-table"
             },
             {
               "type": "custom:bignumber-card",
@@ -119,20 +245,6 @@
               "max": 0,
               "round": 0,
               "hideunit": true
-            },
-            {
-              "type": "custom:bignumber-card",
-              "title": "Auton akku (%)",
-              "entity": "sensor.tyyne_battery",
-              "scale": "75px",
-              "from": "bottom",
-              "min": 0,
-              "max": 0,
-              "hideunit": true,
-              "round": 0
-            },
-            {
-              "type": "energy-sources-table"
             },
             {
               "type": "custom:apexcharts-card",
@@ -153,10 +265,10 @@
               },
               "series": [
                 {
-                  "entity": "sensor.nordpool_kwh_fi_eur_2_095_024",
+                  "entity": "sensor.nordpool_kwh_fi_eur_2_095_0255",
                   "type": "column",
                   "name": "Hinta",
-                  "data_generator": "return entity.attributes.raw_today.map((start, index) => {\n  return [new Date(start[\"start\"]).getTime(), entity.attributes.raw_today[index][\"value\"] * 1.1];\n});\n",
+                  "data_generator": "return entity.attributes.raw_today.map((start, index) => {\n  return [new Date(start[\"start\"]).getTime(), entity.attributes.raw_today[index][\"value\"]];\n});\n",
                   "color_threshold": [
                     {
                       "value": 0,
@@ -195,6 +307,28 @@
                   "entity": "sensor.tesla_amps"
                 }
               ]
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Sähkön hinta (snt/kWh)",
+              "entity": "sensor.current_price_with_tax",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0,
+              "hideunit": true,
+              "round": 2
+            },
+            {
+              "type": "custom:bignumber-card",
+              "title": "Tuotanto nyt (W)",
+              "entity": "sensor.current_production",
+              "scale": "75px",
+              "from": "bottom",
+              "min": 0,
+              "max": 0,
+              "hideunit": true,
+              "round": 0
             }
           ],
           "badges": []

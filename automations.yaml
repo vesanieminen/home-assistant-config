@@ -1,28 +1,40 @@
 - id: '1669323782390'
-  alias: Night
+  alias: Ilpo 22 pyynti
   description: ''
-  trigger:
-  - platform: time
-    at: '23:00:00'
-  condition: []
-  action:
-  - service: scene.turn_on
-    target:
+  triggers:
+  - at: 00:00:00
+    trigger: time
+    enabled: false
+  - trigger: numeric_state
+    entity_id:
+    - sensor.nordpool_kwh_fi_eur_2_095_0255
+    below: 5
+  conditions: []
+  actions:
+  - target:
       entity_id: scene.night
     metadata: {}
+    action: scene.turn_on
+    data: {}
   mode: single
 - id: '1669323839393'
-  alias: Morning
+  alias: Ilpo 19 pyynti
   description: ''
-  trigger:
-  - platform: time
-    at: 06:00:00
-  condition: []
-  action:
+  triggers:
+  - at: 07:00:00
+    trigger: time
+    enabled: false
+  - trigger: numeric_state
+    entity_id:
+    - sensor.nordpool_kwh_fi_eur_2_095_0255
+    above: 5
+  conditions: []
+  actions:
   - target:
       entity_id: scene.morning
     metadata: {}
     action: scene.turn_on
+    data: {}
   mode: single
 - id: '1726915374887'
   alias: Ylituotanto alle rajan
@@ -44,7 +56,7 @@
   description: ''
   triggers:
   - trigger: time
-    at: '18:50:00'
+    at: 02:55:00
   conditions: []
   actions:
   - type: turn_on
@@ -70,7 +82,14 @@
   description: ''
   triggers:
   - trigger: time
-    at: '16:50:00'
+    at: '11:50:00'
+    enabled: false
+  - trigger: time
+    at: '15:55:00'
+    enabled: false
+  - trigger: time
+    at: 02:55:00
+    enabled: true
   conditions: []
   actions:
   - device_id: 31fce6ef2e5602e967337a631ea35d0c
@@ -84,10 +103,14 @@
   description: ''
   triggers:
   - trigger: time
-    at: 06:50:00
+    at: 01:00:00
     enabled: false
   - trigger: time
-    at: '22:00:00'
+    at: 00:00:00
+    enabled: false
+  - trigger: time
+    at: 04:30:00
+    enabled: true
   conditions: []
   actions:
   - device_id: 31fce6ef2e5602e967337a631ea35d0c
@@ -101,7 +124,7 @@
   description: ''
   triggers:
   - trigger: time
-    at: 03:00:00
+    at: 00:50:00
   conditions: []
   actions:
   - device_id: 31fce6ef2e5602e967337a631ea35d0c
@@ -110,3 +133,207 @@
     type: select_option
     option: luxury
   mode: single
+- id: '1731447180920'
+  alias: Nibe lämmitys
+  description: ''
+  triggers:
+  - trigger: time
+    at: 01:00:00
+  conditions: []
+  actions:
+  - device_id: 31fce6ef2e5602e967337a631ea35d0c
+    domain: number
+    entity_id: 1b48eb0c74b7cb8059f762dc6bdf52a3
+    type: set_value
+    value: 0
+  mode: single
+- id: '1733342433315'
+  alias: Lämpökäyrämuutos = 2
+  description: ''
+  triggers:
+  - trigger: time
+    at: 00:00:00
+  conditions: []
+  actions:
+  - device_id: 31fce6ef2e5602e967337a631ea35d0c
+    domain: number
+    entity_id: 1b48eb0c74b7cb8059f762dc6bdf52a3
+    type: set_value
+    value: 2
+  mode: single
+- id: '1733342603884'
+  alias: Lämpökäyrämuutos = 0
+  description: ''
+  triggers:
+  - trigger: time
+    at: 06:50:00
+  conditions: []
+  actions:
+  - device_id: 31fce6ef2e5602e967337a631ea35d0c
+    domain: number
+    entity_id: 1b48eb0c74b7cb8059f762dc6bdf52a3
+    type: set_value
+    value: 0
+  mode: single
+- id: '1734281866985'
+  alias: Aseta ilpo lämmitykselle automaattisesti
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.ilpo_room_temperature
+    below: 23
+  conditions: []
+  actions:
+  - device_id: 254baf9336c13d9bbdccb2362d2ade65
+    domain: climate
+    entity_id: 912b353087dd835375fbc3c8e214c971
+    type: set_hvac_mode
+    hvac_mode: heat
+  mode: single
+- id: '1734290099600'
+  alias: Aseta ilpo puhallukselle automaattisesti
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.ilpo_room_temperature
+    above: 23
+  conditions: []
+  actions:
+  - device_id: 254baf9336c13d9bbdccb2362d2ade65
+    domain: climate
+    entity_id: 912b353087dd835375fbc3c8e214c971
+    type: set_hvac_mode
+    hvac_mode: fan_only
+  mode: single
+- id: '1735941243012'
+  alias: Lämpökäyrä = 0
+  description: ''
+  triggers:
+  - trigger: time
+    at: 01:00:00
+  conditions: []
+  actions:
+  - device_id: 31fce6ef2e5602e967337a631ea35d0c
+    domain: number
+    entity_id: 39e10ac8d833065a17329c5ae6a28736
+    type: set_value
+    value: 0
+  mode: single
+- id: '1735941293542'
+  alias: Lämpökäyrä = 2
+  description: ''
+  triggers:
+  - trigger: time
+    at: 08:00:00
+  conditions: []
+  actions:
+  - device_id: 31fce6ef2e5602e967337a631ea35d0c
+    domain: number
+    entity_id: 39e10ac8d833065a17329c5ae6a28736
+    type: set_value
+    value: 2
+  mode: single
+- id: '1735989791361'
+  alias: Keittiön jouluvalo päälle klo 16
+  description: ''
+  triggers:
+  - trigger: time
+    at: '16:00:00'
+  conditions: []
+  actions:
+  - type: turn_on
+    device_id: 50cadf6ea55688ea3937e341c0548fd4
+    entity_id: 3348278425d9ae28db126df88aeec684
+    domain: switch
+  mode: single
+- id: '1735989828532'
+  alias: Keittiön jouluvalo pois päältä klo 9
+  description: ''
+  triggers:
+  - trigger: time
+    at: 09:00:00
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 50cadf6ea55688ea3937e341c0548fd4
+    entity_id: 3348278425d9ae28db126df88aeec684
+    domain: switch
+  mode: single
+- id: '1736786690206'
+  alias: Synkronoi Mikon pöytä-LED pois päältä
+  description: ''
+  triggers:
+  - type: turned_off
+    device_id: 6bf1ae9dd9a2c790fff928bd6571880a
+    entity_id: bd2062b96f81cbb180b572bfd55b9d92
+    domain: light
+    trigger: device
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: c5067bc57824168864f863ef10367151
+    entity_id: 1d48bfb64fa8f363078ae08a96815fb8
+    domain: light
+  mode: single
+- id: '1736786857664'
+  alias: Synkronoi Mikon pöytä-LED päälle
+  description: ''
+  triggers:
+  - type: turned_on
+    device_id: 6bf1ae9dd9a2c790fff928bd6571880a
+    entity_id: bd2062b96f81cbb180b572bfd55b9d92
+    domain: light
+    trigger: device
+  conditions: []
+  actions:
+  - type: turn_on
+    device_id: c5067bc57824168864f863ef10367151
+    entity_id: 1d48bfb64fa8f363078ae08a96815fb8
+    domain: light
+    brightness_pct: 100
+  mode: single
+- id: '1737284883124'
+  alias: Ovitesti
+  description: ''
+  triggers:
+  - type: opened
+    device_id: 42c4d24bd627d877845479bd3270cdb3
+    entity_id: 9a3f36ec51da20fb5137c7a7e8ce29a9
+    domain: binary_sensor
+    trigger: device
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+  conditions: []
+  actions:
+  - action: notify.mobile_app_v
+    metadata: {}
+    data:
+      message: Autotallin ovi avautui!
+  mode: single
+- id: '1737285915586'
+  alias: "\U0001F6AA Ovet auki yli minuutin"
+  description: ''
+  use_blueprint:
+    path: Raukze/contact-sensor-left-open-notification.yaml
+    input:
+      trigger_entity: binary_sensor.ovet
+      duration_issue_state:
+        hours: 0
+        minutes: 1
+        seconds: 0
+        days: 0
+      notify_services_string: notify.mobile_app_V
+      delete_notification: false
+      notification_click_url: /lovelace/default_view
+      notification_title: '{{ friendly_name }} on auki'
+      notification_message: '{{ friendly_name }} jätettiin auki klo {{ as_timestamp(initially_triggered_at)
+        | timestamp_custom(''%T'', True) }}.'
+      duration_from_issue_state:
+        hours: 1
+        minutes: 0
+        seconds: 5
+        days: 0

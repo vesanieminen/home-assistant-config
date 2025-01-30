@@ -1,0 +1,62 @@
+blueprint:
+  name: Link On/Off State of Multiple Devices
+  description: '## Link On/Off State of Multiple Devices v1.0.0
+
+
+    Select multiple entities to link their on/off state.  If any selected entity is
+    turned on or off, the other selected entities will be sent a matching on or off
+    command.
+
+
+    You can select any entity, but only entities supported by the `homeassistant.turn_on`
+    or `homeassistant.turn_off` service calls will work.
+
+
+    ### Requirements
+
+    * All selected entities MUST suport `homeassistant.turn_on` and `homeassistant.turn_off`
+    or errors will be logged and the blueprint will not work.
+
+    * Requires Home Assistant 2022.5.0 or newer.
+
+
+    ### Credits
+
+    * [@adchevrier](https://community.home-assistant.io/u/adchevrier) for the [initial
+    blueprint](https://community.home-assistant.io/t/synchronize-the-on-off-state-of-2-entities/259010)
+
+    * [@hebus](https://community.home-assistant.io/u/hebus) for [this fantastic template](https://community.home-assistant.io/t/synchronize-the-on-off-state-of-2-entities/259010/38)
+
+    '
+  domain: automation
+  homeassistant:
+    min_version: 2022.5.0
+  input:
+    linked_entities:
+      name: Entities to link
+      selector:
+        entity:
+          multiple: true
+  source_url: https://gist.github.com/aderusha/4d2c8600a2e4771b91b8efc555946413
+mode: queued
+max_exceeded: silent
+variables:
+  linked_entities: !input linked_entities
+trigger:
+- platform: state
+  entity_id: !input linked_entities
+condition:
+- condition: template
+  value_template: '{{ trigger.to_state.state != trigger.from_state.state }}'
+- condition: template
+  value_template: '{{ (trigger.to_state.state == "on") or (trigger.to_state.state
+    == "off") }}'
+- condition: template
+  value_template: '{{trigger.to_state.context.parent_id is none or (trigger.to_state.context.id
+    != this.context.id and trigger.to_state.context.parent_id != this.context.id)
+    }}'
+action:
+- service: homeassistant.turn_{{ trigger.to_state.state }}
+  target:
+    entity_id: '{{ expand(linked_entities) | selectattr("entity_id", "!=", trigger.entity_id)
+      | map(attribute="entity_id") | list }}'

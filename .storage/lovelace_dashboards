@@ -17,34 +17,16 @@
         "show_in_sidebar": true,
         "icon": "mdi:account",
         "title": "Katsaus",
-        "require_admin": false,
+        "require_admin": true,
         "mode": "storage",
         "url_path": "lovelace-saija",
         "id": "lovelace_saija"
       },
       {
         "show_in_sidebar": true,
-        "icon": "mdi:account",
-        "title": "Vesa lista",
-        "require_admin": false,
-        "mode": "storage",
-        "url_path": "vesa-simple",
-        "id": "vesa_simple"
-      },
-      {
-        "show_in_sidebar": true,
-        "icon": "mdi:tablet-dashboard",
-        "title": "Kaikki",
-        "require_admin": true,
-        "mode": "storage",
-        "url_path": "lovelace-kaikki",
-        "id": "lovelace_kaikki"
-      },
-      {
-        "show_in_sidebar": true,
         "icon": "mdi:car",
         "title": "Tyyne",
-        "require_admin": false,
+        "require_admin": true,
         "mode": "storage",
         "url_path": "dashboard-tyyne",
         "id": "dashboard_tyyne"
@@ -66,6 +48,40 @@
         "require_admin": false,
         "mode": "storage",
         "url_path": "dashboard-tuotto"
+      },
+      {
+        "id": "dashboard_testi",
+        "show_in_sidebar": true,
+        "title": "Koti",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "dashboard-testi"
+      },
+      {
+        "id": "dashboard_kaikki",
+        "show_in_sidebar": true,
+        "title": "Kaikki",
+        "require_admin": true,
+        "mode": "storage",
+        "url_path": "dashboard-kaikki"
+      },
+      {
+        "id": "dashboard_valot",
+        "show_in_sidebar": true,
+        "icon": "mdi:ceiling-light",
+        "title": "Valot",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "dashboard-valot"
+      },
+      {
+        "id": "mikon_valot",
+        "show_in_sidebar": true,
+        "icon": "mdi:lightbulb-on-outline",
+        "title": "Mikon valot",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "mikon-valot"
       }
     ]
   }
