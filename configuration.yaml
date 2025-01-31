@@ -194,8 +194,8 @@ sensor:
     #      - type: memory_free
     #      - type: processor_use
     #      - type: processor_temperature
-recorder:
-    purge_keep_days: 30
+#recorder:
+#    purge_keep_days: 30
 
 zha:
   custom_quirks_path: /config/custom_zha_quirks/
